@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<any> {
         table.date('date_of_birth');
         table.string('icon');
         table.string('description');
-        table.integer('user_id').unsigned().notNullable;
+        table.integer('user_id').unsigned().notNullable();
         table.foreign('user_id').references('user.id');
         table.timestamps(false, true);
     })
