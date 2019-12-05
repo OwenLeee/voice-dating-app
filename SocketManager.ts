@@ -6,10 +6,14 @@ interface Client {
 }
 
 export class SocketManager {
-    clients: Client[] = [];
+    private clients: Client[] = [];
 
     findClientWithUserID(userID: number) {
         return this.clients.find(client => client.userID == userID);
+    }
+
+    addClient(client: Client) {
+        this.clients.push(client);
     }
 }
 
