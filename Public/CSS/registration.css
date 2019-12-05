@@ -1,0 +1,27 @@
+.topic {
+    margin-top: 120px;
+    margin-bottom: 25px;
+    font-family: 'Courgette', cursive;
+    font-size: 45px;
+    justify-content: center;
+}
+
+.form {
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+.form-group, .submit {
+    justify-content: center;
+    text-align: center;
+}
+
+.form-group > label {
+    font-size: 25px;
+    font-family: 'Courgette', cursive;
+    color: rgba(0,0,0,0.5);
+}
+
+.submit {
+    margin-bottom: 120px;
+}
