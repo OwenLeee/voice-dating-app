@@ -7,7 +7,7 @@ export function isLoggedIn(req: Request, res: Response, next: NextFunction) {
   if (req.user) {    
     next();
   } else {
-    res.redirect("/home.html");
+    res.redirect("/login.html");
   }
 }
 
@@ -29,13 +29,13 @@ export function loginFlow(req: Request, res: Response, next: NextFunction) {
   return (err: Error, user: any, info: { message: string }) => {
     console.log(err, info); 
     if (err) {
-      res.redirect("/home.html?error=" + err.message);
+      res.redirect("/login.html?error=" + err.message);
     } else if (info && info.message) {
-      res.redirect("/home.html?error=" + info.message);
+      res.redirect("/login.html?error=" + info.message);
     } else {
       req.logIn(user, err => {
         if (err) {
-          res.redirect("/home.html?error=" + "Failed to Login");
+          res.redirect("/login.html?error=" + "Failed to Login");
         } else {
           res.redirect("/match.html"); 
         }
