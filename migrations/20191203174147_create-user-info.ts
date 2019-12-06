@@ -1,8 +1,8 @@
 import * as Knex from "knex";
-
+import { USER_INFO, USER } from '../table';
 
 export async function up(knex: Knex): Promise<any> {
-    await knex.schema.createTable('user_info', table => {
+    await knex.schema.createTable(USER_INFO, table => {
         table.increments();
         table.string('name');
         table.string('gender');
@@ -10,13 +10,13 @@ export async function up(knex: Knex): Promise<any> {
         table.string('icon');
         table.string('description');
         table.integer('user_id').unsigned().notNullable();
-        table.foreign('user_id').references('user.id');
+        table.foreign('user_id').references(`${USER}.id`);
         table.timestamps(false, true);
     })
 }
 
 
 export async function down(knex: Knex): Promise<any> {
-    await knex.schema.dropTable('user_info');
+    await knex.schema.dropTable(USER_INFO);
 }
 

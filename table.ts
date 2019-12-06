@@ -1,1 +1,10 @@
 export const USER = "user"; 
+export const PACKAGE = "package"; 
+export const USER_INFO = "user_info"; 
+export const USER_PACKAGE = "user_package"; 
+export const RATING = "rating"; 
+export const LIKE = "like"; 
+export const CHAT_ROOM = "chat_room"; 
+export const MESSAGE = "message"; 
+export const VOICE = "voice"; 
+export const PICTURE = "picture"; 
