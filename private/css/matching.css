@@ -1,0 +1,74 @@
+/* navbar */
+.navbarContainer {
+    font-family: 'Courgette', cursive;
+}
+
+.navbar-brand {
+    font-size: 30px;
+}
+
+/* total page */
+.pagesContent {
+    padding: 64px 0px 0px;
+}
+
+/* matching list */
+.matchingList {
+    border: solid 1px black;   
+    background-color:whitesmoke;
+    padding: 35px 0px 0px 0px;
+}
+
+.matchingListTitle {
+    font-family: 'Courgette', cursive;
+    font-size: 30px;
+    text-align: center;
+}
+
+.matchingPeopleList > div {
+    height: 60px;
+    margin: 0px;
+    border-top: solid 1px black;
+}
+
+.matchingPeopleContent > img {
+    border-radius: 50px;
+    max-height: 45px;
+    max-width: 55px;
+    margin-top: 0px;
+    position: relative;
+    align-self: center;
+}
+
+.matchingPeopleContent > h6 { 
+    position: relative;
+    align-self: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-right: 80px;
+    font-size: 20px;
+}
+
+.matchingPeopleContent > button {
+    position: absolute;
+    right:0;
+    align-self: center;
+}
+
+.showDetailList {
+    border: solid 1px black; 
+    padding: 0px;   
+}
+
+/* User selfIntroduction */
+.userDetails {
+    border: solid 1px black; 
+    border-radius: 10px;
+    height:140px;
+}
+
+.tickCrossButton {
+    position: absolute;
+    right:0;
+    align-self: center;
+}
