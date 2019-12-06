@@ -55,8 +55,8 @@ const matchService = new MatchService(knex);
 const matchRouter = new MatchRouter(matchService);
 app.use("/match", matchRouter.router());
 
-app.use(express.static(path.join(__dirname, 'private')));
-app.use(isLoggedIn, express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(isLoggedIn, express.static(path.join(__dirname, 'private')));
 
 
 const PORT = 8080;

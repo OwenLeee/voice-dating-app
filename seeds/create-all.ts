@@ -68,12 +68,10 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     );
 
-    const chatRooms = (await knex.raw(/* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) VALUES(?, ?), (?, ?), (?, ?), (?, ?) RETURNING id`,
+    const chatRooms = (await knex.raw(/* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) VALUES(?, ?), (?, ?) RETURNING id`,
         [
             users[0].id, users[1].id,
-            users[1].id, users[0].id,
-            users[2].id, users[3].id,
-            users[3].id, users[2].id
+            users[2].id, users[3].id
         ]
     )).rows;
 
