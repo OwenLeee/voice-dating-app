@@ -23,7 +23,7 @@ export class UserService  {
 
     async createNewUser(email: string, hashedPassword: string) {
         try {
-            console.log(email, hashedPassword, Table.USER);
+            // console.log(email, hashedPassword, Table.USER);
             await this.knex.raw(/*SQL*/ `INSERT INTO "${Table.USER}" (email, password) VALUES (?, ?)`, [email, hashedPassword]);
             return true;
         }

@@ -9,6 +9,12 @@ import * as path from 'path';
 import * as http from 'http';
 import * as socketIO from 'socket.io';
 import { SocketManager } from './SocketManager';
+import { MatchService } from './services/MatchService';
+import { MatchRouter } from './routers/MatchRouter';
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 import * as Knex from "Knex";
 const knexConfig = require("./knexfile");
@@ -19,12 +25,12 @@ const userService = new UserService(knex);
 import { UserRouter } from './routers/UserRouter';
 import { ChatRoomService } from './services/ChatroomService';
 const userRouter = new UserRouter(userService);
+const matchService = new MatchService(knex);
+const matchRouter = new MatchRouter(matchService);
 
-const app = express();
 const server = new http.Server(app);
 const io = socketIO(server);
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionMiddleware = expressSession({
@@ -63,6 +69,7 @@ io.on('connection', function (socket) {
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 passport.serializeUser(function (user: { id: number }, done) {
     console.log('serializeUser');
     done(null, user);
@@ -79,9 +86,9 @@ const LocalStrategy = passportLocal.Strategy;
 passport.use(
     new LocalStrategy(async function (email: string, password: string, done) {
         const user = await userService.getUsers(email);
-        console.log(email, password);
+        // console.log(email, password);
         if (user) {
-            console.log(`${user.email}`);
+            // console.log(`${user.email}`);
         } else {
             console.log('noooo');
         }
@@ -98,6 +105,7 @@ passport.use(
 );
 
 app.use("/user", userRouter.router());
+app.use("/match", matchRouter.router());
 
 
 app.use(isLoggedIn);

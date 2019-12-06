@@ -2,7 +2,7 @@ import * as Knex from "knex";
 
 
 export async function up(knex: Knex): Promise<any> {
-    await knex.schema.createTable('match', table => {
+    await knex.schema.createTable('like', table => {
         table.increments();
         table.integer('from_user_id').unsigned().notNullable();
         table.foreign('from_user_id').references('user.id');
@@ -14,6 +14,6 @@ export async function up(knex: Knex): Promise<any> {
 
 
 export async function down(knex: Knex): Promise<any> {
-    await knex.schema.dropTable('match');
+    await knex.schema.dropTable('like');
 }
 
