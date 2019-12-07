@@ -20,16 +20,17 @@ window.onload = function () {
         body: JSON.stringify({ email, password })
       });
 
-//                               !! should delete, pls check!! 
-    //   console.log(res.status);
-    //   if (res.status === 200) {
-    //     window.location.href = '/home.html';
-    //   } else {
-    //     const resJson = await res.json();
-    //     alert(resJson.message);
-    //   }
-    // })
+//            !! should delete, pls check!! 
+      console.log(res.status);
+      if (res.status === 200) {
+        alert("Yes!Neway")
+        window.location.href = '/login.html';
+      } else {
+        const resJson = await res.json();
+        alert(resJson.message);
+      }
+    })
   
-  })};
+  };
 
   

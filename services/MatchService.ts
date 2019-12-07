@@ -27,24 +27,48 @@ export class MatchService {
             WHERE user_id_1 = ${to_user_id} AND user_id_2 = ${from_user_id}`
             )).rows[0].count
 
+
+
         if (parseInt(duplicate) > 0 || from_user_id == to_user_id) {
-            throw new Error("Duplicate!");
-        } else {
-            if (parseInt(alreadyLiked) > 0) {
-                await this.knex.raw(
-                    /* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) 
-                    VALUES (?, ?)`, [from_user_id, to_user_id]);
-            } else if ((parseInt(chatRoomAlreadyExist) > 0 || parseInt(chatRoomAlreadyExist2) > 0)) {
-                throw new Error("Chat Room Already Exist");
-            }
+            throw new Error("Duplicate!");  // Need to return respond to MatchRouter?? 
+        } else if (parseInt(alreadyLiked) === 0 && parseInt(chatRoomAlreadyExist) === 0 && parseInt(chatRoomAlreadyExist2) === 0) {
             await this.knex.raw(/* sql */ `INSERT INTO "like" (from_user_id, to_user_id) 
-            VALUES (?, ?)`, [from_user_id, to_user_id]);
+                VALUES (?, ?)`, [from_user_id, to_user_id]);
+        } else if (parseInt(alreadyLiked) > 0 && parseInt(chatRoomAlreadyExist) === 0 && parseInt(chatRoomAlreadyExist2) === 0) {
+            await this.knex.raw(/* sql */ `INSERT INTO "like" (from_user_id, to_user_id) 
+                VALUES (?, ?)`, [from_user_id, to_user_id]);
+            await this.knex.raw(/* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) 
+                VALUES (?, ?)`, [from_user_id, to_user_id]);
+        } else if ((parseInt(chatRoomAlreadyExist) > 0 || parseInt(chatRoomAlreadyExist2) > 0)) { // When to use??
+            throw new Error("Chat Room Already Exist"); 
         }
+
+        // if (parseInt(duplicate) > 0 || from_user_id == to_user_id) {
+        //     throw new Error("Duplicate!");
+        // } else {
+        // if (parseInt(alreadyLiked) > 0) {
+        //     await this.knex.raw(
+        //         /* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) 
+        //         VALUES (?, ?)`, [from_user_id, to_user_id]);
+
+        // } else if ((parseInt(chatRoomAlreadyExist) > 0 || parseInt(chatRoomAlreadyExist2) > 0)) {
+        //     throw new Error("Chat Room Already Exist");
+        // }
+        // await this.knex.raw(/* sql */ `INSERT INTO "like" (from_user_id, to_user_id) 
+        // VALUES (?, ?)`, [from_user_id, to_user_id]);
+
     }
 }
 
-
+/*  use for testing only */
 // const knexConfig = require("../knexfile");
 // const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 // const matchService = new MatchService(knex);
 // matchService.like(37, 40);
+
+// import {knex} from '../main'
+// (async () => {
+//     const matchService = new MatchService(knex);
+//     console.log(await matchService.like(2,1));
+// })()
+/*  use for testing only */
