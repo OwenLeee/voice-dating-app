@@ -16,6 +16,8 @@ export class MatchRouter {
         try {
             if (req.user) {
                 res.json(await this.matchService.like(req.user["id"], req.body.userID));
+            } else {
+                res.status(400);
             }
         } catch (e) {
             res.json({ result: false });

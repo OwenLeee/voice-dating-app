@@ -37,7 +37,7 @@ export function loginFlow(req: Request, res: Response, next: NextFunction) {
         if (err) {
           res.redirect("/home.html?error=" + "Failed to Login");
         } else {
-          res.redirect("/match.html"); 
+          res.redirect("/chatroom.html"); 
         }
       });
     }

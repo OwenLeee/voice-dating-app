@@ -1,15 +1,18 @@
 const socket = io.connect('localhost:8080');
 
 // socket.emit("socketObject", "abc");
-function so(id) {
-    socket.emit("socketObject", id);
-}
+// function so(id) {
+//     socket.emit("socketObject", id);
+// }
 
 // socket.emit("receiveMessage", "hello client b");
+// function send(id, message) {
+//     socket.emit("receiveMessage", {userID: id, message});
+// }
 function send(id, message) {
-    socket.emit("receiveMessage", {userID: id, message});
+    socket.emit("serverReceive", {userID: id, message});
 }
 
-socket.on("message", (data) => {
+socket.on("clientReceive", (data) => {
     console.log(data);
 })

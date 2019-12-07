@@ -33,7 +33,7 @@ export class UserRouter {
         router.post("/signup", async (req, res) => {
             // Try-catch 
             const hashedPassword = await hashPassword(req.body.password)
-            res.json({ result: await this.userService.createNewUser(req.body.email, hashedPassword)});
+            res.json({ result: await this.userService.createNewUser(req.body.email, hashedPassword) });
         });
 
 
@@ -56,7 +56,7 @@ export class UserRouter {
 
         router.post("/logout", this.logout);
 
-        router.get("/userId", this.getId);
+        // router.post("/socketID", this.socketID);
 
         return router;
     }
@@ -66,10 +66,10 @@ export class UserRouter {
         res.redirect("/");
     };
 
-    getId = (req: Request, res: Response) => {
-        if (req.user) {
-            res.json({ userID: req.user["id"] });
-        }
-        else res.json({ result: false });
-    }
+    // socketID = (req: Request, res: Response) => {
+    //     if (req.user) {
+    //         this.socketManager.addClient({ socketID: req.body.socketID, userID: req.user['id'] });
+    //     }
+    //     else res.json({ result: false });
+    // }
 }
