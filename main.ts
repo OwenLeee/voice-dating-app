@@ -12,9 +12,13 @@ import { MatchRouter } from './routers/MatchRouter';
 import { UserService } from './services/UserService';
 import { UserRouter } from './routers/UserRouter';
 import { RatingService } from './services/RatingService';
-import { RatingRouter} from './routers/RatingRouter';
+import { RatingRouter } from './routers/RatingRouter';
 import { RegistrationService } from './services/RegistrationService';
 import { RegistrationRouter } from './routers/RegistrationRouter';
+import { MessageService } from './services/MessageService';
+import { MessageRouter } from './routers/MessageRouter';
+import { ChatroomService } from './services/ChatroomService';
+import { ChatroomRouter } from './routers/ChatroomRouter';
 
 const app = express();
 const knexConfig = require("./knexfile");
@@ -54,9 +58,11 @@ const userService = new UserService(knex);
 const userRouter = new UserRouter(userService);
 app.use("/user", userRouter.router());
 
+
 const registrationService = new RegistrationService(knex);
 const registrationRouter = new RegistrationRouter(registrationService);
 app.use("/registration", registrationRouter.router());
+
 
 const matchService = new MatchService(knex);
 const matchRouter = new MatchRouter(matchService);
@@ -64,8 +70,19 @@ app.use("/match", matchRouter.router());
 
 
 const ratingService = new RatingService(knex);
-const ratingRouter = new RatingRouter (ratingService); 
+const ratingRouter = new RatingRouter(ratingService);
 app.use("/rating", ratingRouter.router());
+
+
+const messageService = new MessageService(knex);
+const messageRouter = new MessageRouter(messageService);
+app.use("/message", messageRouter.router());
+
+
+const chatroomService = new ChatroomService(knex);
+const chatroomRouter = new ChatroomRouter(chatroomService);
+app.use("/chatroom", chatroomRouter.router());
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(isLoggedIn, express.static(path.join(__dirname, 'private')));

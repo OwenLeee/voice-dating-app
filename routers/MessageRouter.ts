@@ -1,23 +1,30 @@
-// import * as express from 'express';
-// import { Request, Response } from 'express';
-// import { MessageService } from "../services/MessageService";
+import * as express from 'express';
+import { Request, Response } from 'express';
+import { MessageService } from "../services/MessageService";
 
-// export class MessageRouter {
+export class MessageRouter {
 
-//     constructor(private messageService: MessageService) { }
+    constructor(private messageService: MessageService) { }
 
-//     router() {
-//         const router = express.Router();
-//         router.post('message', this.addMessage)
-//         return router;
-//     }
+    router() {
+        const router = express.Router();
+        router.post('/addMessage', this.addMessage)
+        return router;
+    }
 
-//     private addMessage = async (req: Request, res: Response) => {
-//         try {
-//             req.body.
-//         } catch (e) {
-//             console.error(e.message);
-//         }
-
-//     }
-// }
+    private addMessage = async (req: Request, res: Response) => {
+        try {
+            if (req.user) {
+                await this.messageService.addMessage(req.body.message, req.body.chatID, req.user["id"], req.body.userID);
+                res.json({ result: true });
+            } else {
+                res.status(400)
+            };
+        }
+        catch (e) {
+            res.json({ result: false }).status(500);
+            console.error('error is found in addMessage function...');
+            console.error(e.message);
+        }
+    }
+}

@@ -15,12 +15,13 @@ export class MatchRouter {
     private like = async (req: Request, res: Response) => {
         try {
             if (req.user) {
-                res.json(await this.matchService.like(req.user["id"], req.body.userID));
+                await this.matchService.like(req.user["id"], req.body.userID);
+                res.json({ result: true });
             } else {
                 res.status(400);
             }
         } catch (e) {
-            res.json({ result: false });
+            res.json({ result: false }).status(500);
             console.error('error is found in like function...');
             console.error(e.message);
         }

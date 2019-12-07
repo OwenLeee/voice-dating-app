@@ -1,10 +1,10 @@
 import { io } from './main';
 import { knex } from './main'
-import { ChatRoomService } from './services/ChatroomService';
+import { ChatroomService } from './services/ChatroomService';
+import { MessageService } from './services/MessageService';
 
-
-const chatroomService = new ChatRoomService(knex);
-
+const chatroomService = new ChatroomService(knex);
+const messageService = new MessageService(knex);
 
 io.on('connection', function (socket) {
     // console.log(socket.id);
@@ -26,7 +26,6 @@ io.on('connection', function (socket) {
             io.to('' + messageObject.userID).emit('clientReceive', messageObject.message)
         };
         const chatID = await chatroomService.findChatRoomID(userID, messageObject.userID);
-        chatroomService.addMessage(messageObject.message, chatID, userID, messageObject.userID)
-
+        messageService.addMessage(messageObject.message, chatID, userID, messageObject.userID)
     });
 });
