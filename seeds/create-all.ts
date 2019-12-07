@@ -14,7 +14,9 @@ export async function seed(knex: Knex): Promise<any> {
     await knex.raw(/* sql */ `DELETE FROM "user"`);
 
 
-    const users: { id: number }[] = (await knex.raw(/* sql */ `INSERT INTO "user" (email, password) VALUES(?, ?), (?, ?), (?, ?), (?, ?) RETURNING id`,
+    const users: { id: number }[] = (await knex.raw(/* sql */ `
+            INSERT INTO "user" (email, password) 
+            VALUES(?, ?), (?, ?), (?, ?), (?, ?) RETURNING id`,
         [
             'owen@owen.com', await hashPassword('123456'),
             'sherman@sherman.com', await hashPassword('123456'),
@@ -23,7 +25,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
-    const packages = (await knex.raw(/* sql */ `INSERT INTO "package" (name) VALUES(?), (?), (?), (?) RETURNING id`,
+    const packages = (await knex.raw(/* sql */ `
+            INSERT INTO "package" (name) 
+            VALUES(?), (?), (?), (?) RETURNING id`,
         [
             'gold',
             'diamond',
@@ -32,7 +36,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
-    await knex.raw(/* sql */ `INSERT INTO "user_info" (name, gender, date_of_birth, icon, description, user_id) VALUES(?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?)`,
+    await knex.raw(/* sql */ `
+        INSERT INTO "user_info" (name, gender, date_of_birth, icon, description, user_id) 
+        VALUES(?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?)`,
         [
             'owen', 'male', '1990-10-01', 'owen.jpg', 'i am handsome', users[0].id,
             'sherman', 'female', '2000-10-01', 'sherman.jpg', 'i am pretty', users[1].id,
@@ -41,7 +47,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     );
 
-    await knex.raw(/* sql */ `INSERT INTO "user_package" (user_id, package_id) VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
+    await knex.raw(/* sql */ `
+        INSERT INTO "user_package" (user_id, package_id) 
+        VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
         [
             users[0].id, packages[0].id,
             users[1].id, packages[1].id,
@@ -50,7 +58,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     );
 
-    await knex.raw(/* sql */ `INSERT INTO "rating" (score, from_user_id, to_user_id) VALUES(?, ?, ?), (?, ?, ?), (?, ?, ?), (?, ?, ?)`,
+    await knex.raw(/* sql */ `
+        INSERT INTO "rating" (score, from_user_id, to_user_id) 
+        VALUES(?, ?, ?), (?, ?, ?), (?, ?, ?), (?, ?, ?)`,
         [
             2, users[1].id, users[0].id,
             5, users[0].id, users[1].id,
@@ -59,7 +69,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     );
 
-    await knex.raw(/* sql */ `INSERT INTO "like" (from_user_id, to_user_id) VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
+    await knex.raw(/* sql */ `
+        INSERT INTO "like" (from_user_id, to_user_id) 
+        VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
         [
             users[0].id, users[1].id,
             users[1].id, users[0].id,
@@ -68,14 +80,18 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     );
 
-    const chatRooms = (await knex.raw(/* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) VALUES(?, ?), (?, ?) RETURNING id`,
+    const chatRooms = (await knex.raw(/* sql */ `
+        INSERT INTO "chat_room" (user_id_1, user_id_2) 
+        VALUES(?, ?), (?, ?) RETURNING id`,
         [
             users[0].id, users[1].id,
             users[2].id, users[3].id
         ]
     )).rows;
 
-    await knex.raw(/* sql */ `INSERT INTO "message" (message_text, chat_id, from_user_id, to_user_id) VALUES(?, ?, ?, ?), (?, ?, ?, ?), (?, ?, ?, ?), (?, ?, ?, ?)`,
+    await knex.raw(/* sql */ `
+        INSERT INTO "message" (message_text, chat_id, from_user_id, to_user_id) 
+        VALUES(?, ?, ?, ?), (?, ?, ?, ?), (?, ?, ?, ?), (?, ?, ?, ?)`,
         [
             'i love you', chatRooms[0].id, users[0].id, users[1].id,
             'i hate you', chatRooms[0].id, users[1].id, users[0].id,
@@ -84,7 +100,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     );
 
-    await knex.raw(/* sql */ `INSERT INTO "voice" (voice_path, user_id) VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
+    await knex.raw(/* sql */ `
+        INSERT INTO "voice" (voice_path, user_id) 
+        VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
         [
             'owen.mp4', users[0].id,
             'sherman.mp4', users[1].id,
@@ -93,7 +111,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     );
 
-    await knex.raw(/* sql */ `INSERT INTO "picture" (picture_path, user_id) VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
+    await knex.raw(/* sql */ `
+        INSERT INTO "picture" (picture_path, user_id) 
+        VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
         [
             'owen.jpg', users[0].id,
             'sherman.jpg', users[1].id,
