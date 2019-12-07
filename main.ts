@@ -13,6 +13,8 @@ import { UserService } from './services/UserService';
 import { UserRouter } from './routers/UserRouter';
 import { RatingService } from './services/RatingService';
 import { RatingRouter} from './routers/RatingRouter';
+import { RegistrationService } from './services/RegistrationService';
+import { RegistrationRouter } from './routers/RegistrationRouter';
 
 const app = express();
 const knexConfig = require("./knexfile");
@@ -52,6 +54,9 @@ const userService = new UserService(knex);
 const userRouter = new UserRouter(userService);
 app.use("/user", userRouter.router());
 
+const registrationService = new RegistrationService(knex);
+const registrationRouter = new RegistrationRouter(registrationService);
+app.use("/registration", registrationRouter.router());
 
 const matchService = new MatchService(knex);
 const matchRouter = new MatchRouter(matchService);

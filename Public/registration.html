@@ -16,18 +16,19 @@
 <body>
     <div class="topic row col-12" id="topic">Registration</div>
     
-    <form class="form row col-12">
+    <form class="form row col-12" action="/Registration" method="POST" id="registration-form">
         <!-- Name -->
         <div class="form-group col-12">
             <label for="form-name">Name</label>
-            <input type="email" class="form-control" id="form-name" placeholder="Please enter your name !">
+            <input type="text" class="form-control" id="form-name" placeholder="Please enter your name !" required/>
         </div>
         <!-- Gender -->
         <div class="form-group col-12">
             <label for="form-gender">Gender</label>
-            <select class="form-control" id="form-gender">
-                <option>Male</option>
-                <option>Female</option>
+            <select class="form-control" name="form-gender" id="form-gender">
+                <option value="">--- Please Choose ---</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
             </select>
         </div>
         <!-- DOB -->
