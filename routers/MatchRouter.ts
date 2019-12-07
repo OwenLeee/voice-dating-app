@@ -9,6 +9,7 @@ export class MatchRouter {
     router() {
         const router = express.Router();
         router.post('/like', this.like);
+        router.get('/getpeople', this.getPeople)
         return router;
     }
 
@@ -25,5 +26,10 @@ export class MatchRouter {
             console.error('error is found in like function...');
             console.error(e.message);
         }
+    }
+
+    private getPeople = async (req: Request, res: Response) => {
+        
+        
     }
 }
