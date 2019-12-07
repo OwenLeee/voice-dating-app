@@ -7,7 +7,6 @@ const chatroomService = new ChatroomService(knex);
 const messageService = new MessageService(knex);
 
 io.on('connection', function (socket) {
-    // console.log(socket.id);
     if (!socket.request.session.passport) {
         socket.disconnect();
         return;
@@ -19,7 +18,7 @@ io.on('connection', function (socket) {
     socket.on("disconnect", () => {
         socket.request.session.socketId = null;
         socket.request.session.save();
-    })
+    });
 
     socket.on('serverReceive', async function (messageObject) {
         if (chatroomService.checkMatched(messageObject.userID, userID)) {

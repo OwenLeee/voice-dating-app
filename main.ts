@@ -19,6 +19,9 @@ import { MessageService } from './services/MessageService';
 import { MessageRouter } from './routers/MessageRouter';
 import { ChatroomService } from './services/ChatroomService';
 import { ChatroomRouter } from './routers/ChatroomRouter';
+import { PortfolioService } from './services/PortfolioService';
+import { PortfolioRouter } from './routers/PortfolioRouter';
+
 
 const app = express();
 const knexConfig = require("./knexfile");
@@ -51,8 +54,8 @@ io.use((socket, next) => {
     sessionMiddleware(socket.request, socket.request.res, next);
 });
 //...
-
 import './socket';
+
 
 const userService = new UserService(knex);
 const userRouter = new UserRouter(userService);
@@ -82,6 +85,11 @@ app.use("/message", messageRouter.router());
 const chatroomService = new ChatroomService(knex);
 const chatroomRouter = new ChatroomRouter(chatroomService);
 app.use("/chatroom", chatroomRouter.router());
+
+
+const portfolioService = new PortfolioService(knex);
+const portfolioRouter = new PortfolioRouter(portfolioService);
+app.use("/chatroom", portfolioRouter.router());
 
 
 app.use(express.static(path.join(__dirname, 'public')));
