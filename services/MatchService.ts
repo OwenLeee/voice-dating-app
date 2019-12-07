@@ -58,6 +58,13 @@ export class MatchService {
         // VALUES (?, ?)`, [from_user_id, to_user_id]);
 
     }
+
+    async extract (user_id: number) {
+    const people = await this.knex.raw(/* SQL */ `SELECT * from "user_info"`);
+    
+    }
+
+
 }
 
 /*  use for testing only */
