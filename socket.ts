@@ -21,21 +21,12 @@ io.on('connection', function (socket) {
         socket.request.session.save();
     })
 
-    socket.on('serverReceive', function (messageObject) {
+    socket.on('serverReceive', async function (messageObject) {
         if (chatroomService.checkMatched(messageObject.userID, userID)) {
             io.to('' + messageObject.userID).emit('clientReceive', messageObject.message)
         };
-        // chatroomService.addMessage(userID, messageObject.message)
+        const chatID = await chatroomService.findChatRoomID(userID, messageObject.userID);
+        chatroomService.addMessage(messageObject.message, chatID, userID, messageObject.userID)
+
     });
-
-
-
-    // socket.on("receiveMessage", (data) => {
-    //     if (client) {
-    //         client.socket.emit("message", data)
-    //         chatroomService.addMessage(data);
-    //     } else {
-    //         console.log('i am here!!!!!!')
-    //     }
-    // })
 });
