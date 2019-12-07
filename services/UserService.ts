@@ -14,7 +14,7 @@ export class UserService  {
     async getUsers(email: string): Promise<User> {
         try {
             const users = await this.knex.raw(/*SQL*/ `SELECT * from "${Table.USER}" where email = ?`, [email]);
-            return users.rows[0];
+            return users.rows[0];       
         }
         catch (err) {
             throw err;
