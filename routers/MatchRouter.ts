@@ -9,7 +9,7 @@ export class MatchRouter {
     router() {
         const router = express.Router();
         router.post('/like', this.like);
-        router.get('/getpeople', this.getPeople)
+        router.get('/getPeople', this.getPeople)
         return router;
     }
 

@@ -6,17 +6,32 @@ export class MessageService {
 
     async addMessage(message: string, chat_id: number, from_user_id: number, to_user_id: number) {
 
-        await this.knex.raw(
-            /* sql */ `INSERT INTO "message" (message_text, chat_id, from_user_id, to_user_id) 
+        await this.knex.raw(/* sql */ `
+            INSERT INTO "message" (message_text, chat_id, from_user_id, to_user_id) 
             VALUES (?, ?, ?, ?)`, [message, chat_id, from_user_id, to_user_id]
-        )
+        );
+    }
+
+    async getMessageByUserID(from_user_id: number, to_user_id: number) {
+        await this.knex.raw(/* sql */ `
+            SELECT * FROM "message" 
+            WHERE from_user_id = ${from_user_id} 
+            AND to_user_id = ${to_user_id}
+        `);
     }
 }
 
+/////////////////* TESTING BELOW */////////////////
 
 // const knexConfig = require("../knexfile");
-// export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+// const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+
 // (async () => {
 //     const messageService = new MessageService(knex);
 //     console.log(typeof (await messageService.addMessage('ngo diu nei ar', 41, 41, 42)));
+// })()
+
+// (async () => {
+//     const messageService = new MessageService(knex);
+//     await messageService.getMessageByUserID(41, 42);
 // })()

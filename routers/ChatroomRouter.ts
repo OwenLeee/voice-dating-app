@@ -31,7 +31,8 @@ export class ChatroomRouter {
     private findChatRoomID = async (req: Request, res: Response) => {
         try {
             if (req.user) {
-                res.json(await this.chatroomService.findChatRoomID(req.user["id"], req.body.userID));
+                res.json({ result: true });
+                await this.chatroomService.findChatRoomID(req.user["id"], req.body.userID);
             } else {
                 res.status(400);
             }

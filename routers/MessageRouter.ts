@@ -8,7 +8,8 @@ export class MessageRouter {
 
     router() {
         const router = express.Router();
-        router.post('/addMessage', this.addMessage)
+        router.post('/addMessage', this.addMessage);
+        router.get('/getMessage', this.getMessage);
         return router;
     }
 
@@ -18,12 +19,28 @@ export class MessageRouter {
                 await this.messageService.addMessage(req.body.message, req.body.chatID, req.user["id"], req.body.userID);
                 res.json({ result: true });
             } else {
-                res.status(400)
+                res.status(400);
             };
         }
         catch (e) {
             res.json({ result: false }).status(500);
             console.error('error is found in addMessage function...');
+            console.error(e.message);
+        }
+    }
+
+    private getMessage = async (req: Request, res: Response) => {
+        try {
+            if (req.user) {
+                await this.messageService.getMessageByUserID(req.user["id"], req.body.userID);
+                res.json({ result: true });
+            } else {
+                res.status(400);
+            }
+        }
+        catch (e) {
+            res.json({ result: false }).status(500);
+            console.error('error is found in getMessage function...');
             console.error(e.message);
         }
     }
