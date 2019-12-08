@@ -1,7 +1,8 @@
 import * as express from 'express';
-import * as multer from 'multer'
 import { Request, Response } from 'express';
 import { SettingService } from "../services/SettingService";
+import { pictureUpload } from "../pictureUpload";
+import { voiceUpload } from "../voiceUpload";
 
 export class SettingRouter {
     constructor(private settingService: SettingService) { }
@@ -9,21 +10,13 @@ export class SettingRouter {
     router() {
         const router = express.Router();
 
-        const storage = multer.diskStorage({
-            destination: function (req, file, cb) {
-                cb(null, __dirname + '/../uploads/');
-            },
-            filename: function (req, file, cb) {
-                cb(null, `${file.fieldname}-${Date.now()}.${file.mimetype.split('/')[1]}`);
-            }
-        })
-        const upload = multer({ storage: storage })
-
         router.put('/updateName', this.updateName);
         router.put('/updateBirthday', this.updateBirthday);
         router.put('/updateDescription', this.updateDescription);
-        router.post('/addPictures', upload.array('picture'), this.addPictures);
+        router.post('/addPictures', pictureUpload.array('picture'), this.addPictures);
         router.delete('/deletePictures', this.deletePictures);
+        router.post('/addVoice', voiceUpload.array('mp4'), this.addVoice);
+        router.delete('/deleteVoice', this.deleteVoice);
 
         return router;
     }
@@ -94,6 +87,34 @@ export class SettingRouter {
         catch (e) {
             res.status(404).json({ result: false });
             console.error('error is found in deletePictures function...');
+            console.error(e.message);
+        }
+    }
+
+    private addVoice = async (req: Request, res: Response) => {
+        try {
+            if (req.user) {
+                await this.settingService.addVoice(req.user["id"], req.files != null ? req.files[0].filename : undefined);
+                res.redirect('/setting.html');
+            }
+        }
+        catch (e) {
+            res.status(404).json({ result: 'voice not found' });
+            console.error('error is found in addVoice function...');
+            console.error(e.message);
+        }
+    }
+
+    private deleteVoice = async (req: Request, res: Response) => {
+        try {
+            if (req.user) {
+                await this.settingService.deleteVoice(req.user["id"], req.file != null ? req.file.filename : undefined);
+                res.json({ result: true });
+            }
+        }
+        catch (e) {
+            res.status(404).json({ result: false });
+            console.error('error is found in deleteVoice function...');
             console.error(e.message);
         }
     }

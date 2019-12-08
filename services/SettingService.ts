@@ -49,6 +49,26 @@ export class SettingService {
         `);
         }
     }
+
+    async addVoice(user_id: number, voice_path?: string) {
+        if (voice_path) {
+            await this.knex.raw(/* sql */ `
+            INSERT INTO voice (voice_path, user_id) 
+            VALUES (?, ?)`, [voice_path, user_id]
+            );
+        }
+    }
+
+    async deleteVoice(user_id: number, voice_path?: string) {
+        if (voice_path) {
+            await this.knex.raw(/* sql */ `
+            UPDATE voice
+            SET voice_path = null
+            WHERE user_id = ${user_id}
+            AND voice_path = ${voice_path}
+        `);
+        }
+    }
 }
 
 
