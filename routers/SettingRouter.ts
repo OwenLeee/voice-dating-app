@@ -3,7 +3,7 @@ import * as multer from 'multer'
 import { Request, Response } from 'express';
 import { SettingService } from "../services/SettingService";
 
-export class PortfolioRouter {
+export class SettingRouter {
     constructor(private settingService: SettingService) { }
 
     router() {
