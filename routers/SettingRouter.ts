@@ -1,8 +1,8 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { SettingService } from "../services/SettingService";
-import { pictureUpload } from "../pictureUpload";
-import { voiceUpload } from "../voiceUpload";
+import { pictureUpload } from "../pictureMulter";
+import { voiceUpload } from "../voiceMulter";
 
 export class SettingRouter {
     constructor(private settingService: SettingService) { }
