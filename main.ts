@@ -100,7 +100,7 @@ app.use("/setting", settingRouter.router());
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/user-pics', express.static(__dirname + '/uploads'))
+app.use('/user-pics', express.static(__dirname + '/uploads'));
 app.use(isLoggedIn, express.static(path.join(__dirname, 'private')));
 
 // (async() => {

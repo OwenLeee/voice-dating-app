@@ -60,5 +60,5 @@ export class SettingService {
 
 // (async () => {
 //     const settingService = new SettingService(knex);
-//     console.log(typeof (await settingService.updateName(41, 'owenJai')));
+//     await settingService.addPictures(41, 'owenJai222.png');
 // })()

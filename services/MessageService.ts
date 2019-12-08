@@ -28,7 +28,7 @@ export class MessageService {
 
 // (async () => {
 //     const messageService = new MessageService(knex);
-//     console.log(typeof (await messageService.addMessage('ngo diu nei ar', 41, 41, 42)));
+//     await messageService.getMessageByUserID(41, 42);
 // })()
 
 // (async () => {
