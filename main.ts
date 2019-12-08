@@ -71,27 +71,27 @@ app.use("/registration", registrationRouter.router());
 
 const matchService = new MatchService(knex);
 const matchRouter = new MatchRouter(matchService);
-app.use("/match", matchRouter.router());
+app.use("/match",  isLoggedIn, matchRouter.router());
 
 
 const ratingService = new RatingService(knex);
 const ratingRouter = new RatingRouter(ratingService);
-app.use("/rating", ratingRouter.router());
+app.use("/rating",  isLoggedIn, ratingRouter.router());
 
 
 const messageService = new MessageService(knex);
 const messageRouter = new MessageRouter(messageService);
-app.use("/message", messageRouter.router());
+app.use("/message", isLoggedIn, messageRouter.router());
 
 
 const chatroomService = new ChatroomService(knex);
 const chatroomRouter = new ChatroomRouter(chatroomService);
-app.use("/chatroom", chatroomRouter.router());
+app.use("/chatroom", isLoggedIn, chatroomRouter.router());
 
 
 const portfolioService = new PortfolioService(knex);
 const portfolioRouter = new PortfolioRouter(portfolioService);
-app.use("/chatroom", portfolioRouter.router());
+app.use("/portfolio", isLoggedIn, portfolioRouter.router());
 
 
 const settingService = new SettingService(knex);
