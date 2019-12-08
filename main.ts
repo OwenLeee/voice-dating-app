@@ -25,7 +25,7 @@ import { SettingService } from './services/SettingService';
 import { SettingRouter } from './routers/SettingRouter';
 
 
-const app = express();
+export const app = express();
 const knexConfig = require("./knexfile");
 export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
@@ -96,7 +96,7 @@ app.use("/chatroom", portfolioRouter.router());
 
 const settingService = new SettingService(knex);
 const settingRouter = new SettingRouter(settingService);
-app.use("/setting", settingRouter.router());
+app.use("/setting",isLoggedIn, settingRouter.router());
 
 
 app.use(express.static(path.join(__dirname, 'public')));

@@ -1,4 +1,5 @@
 import * as multer from 'multer';
+import * as path from 'path';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -9,4 +10,14 @@ const storage = multer.diskStorage({
     }
 })
 
-export const pictureUpload = multer({ storage: storage })
+
+export const pictureUpload = multer({
+    storage: storage,
+    fileFilter: function (req, file, callback) {
+        const ext = path.extname('/uploads/pictures');
+        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            return callback(new Error('Only images are allowed'), false);
+        }
+        callback(null, true);
+    }
+})
