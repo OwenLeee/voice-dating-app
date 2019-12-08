@@ -30,20 +30,24 @@ export class SettingService {
     ////////// get rating in RatingService //////////
 
 
-    async addPictures(user_id: number, picture_path: string) {
-        await this.knex.raw(/* sql */ `
-        INSERT INTO picture (picture_path, user_id) 
-        VALUES (?, ?)`, [picture_path, user_id]
-        );
+    async addPictures(user_id: number, picture_path?: string) {
+        if (picture_path) {
+            await this.knex.raw(/* sql */ `
+            INSERT INTO picture (picture_path, user_id) 
+            VALUES (?, ?)`, [picture_path, user_id]
+            );
+        }
     }
 
-    async deletePictures(user_id: number, picture_path: string) {
-        await this.knex.raw(/* sql */ `
-        UPDATE picture
-        SET picture_path = null
-        WHERE user_id = ${user_id}
-        AND picture_path = ${picture_path}
+    async deletePictures(user_id: number, picture_path?: string) {
+        if (picture_path) {
+            await this.knex.raw(/* sql */ `
+            UPDATE picture
+            SET picture_path = null
+            WHERE user_id = ${user_id}
+            AND picture_path = ${picture_path}
         `);
+        }
     }
 }
 

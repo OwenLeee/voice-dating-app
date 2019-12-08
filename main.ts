@@ -6,7 +6,6 @@ import * as path from 'path';
 import * as http from 'http';
 import * as socketIO from 'socket.io';
 import * as Knex from "Knex";
-import * as multer from 'multer';
 import { isLoggedIn } from "./guards";
 import { MatchService } from './services/MatchService';
 import { MatchRouter } from './routers/MatchRouter';
@@ -22,15 +21,9 @@ import { ChatroomService } from './services/ChatroomService';
 import { ChatroomRouter } from './routers/ChatroomRouter';
 import { PortfolioService } from './services/PortfolioService';
 import { PortfolioRouter } from './routers/PortfolioRouter';
+import { SettingService } from './services/SettingService';
+import { SettingRouter } from './routers/SettingRouter';
 
-
-const upload = multer({ dest: 'uploads/' })
-export const cpUpload = upload.fields(
-    [
-        { name: 'avatar', maxCount: 1 },
-        { name: 'gallery', maxCount: 8 }
-    ]);
-    
 
 const app = express();
 const knexConfig = require("./knexfile");
@@ -101,7 +94,13 @@ const portfolioRouter = new PortfolioRouter(portfolioService);
 app.use("/chatroom", portfolioRouter.router());
 
 
+const settingService = new SettingService(knex);
+const settingRouter = new SettingRouter(settingService);
+app.use("/setting", settingRouter.router());
+
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/user-pics', express.static(__dirname + '/uploads'))
 app.use(isLoggedIn, express.static(path.join(__dirname, 'private')));
 
 // (async() => {
