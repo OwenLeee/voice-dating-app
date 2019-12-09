@@ -4,36 +4,28 @@ window.onload = function () {
 
 function main() {
     const registrationForm = document.getElementById("registration-form");
-    console.log(registrationForm);
     registrationForm.addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        const name = registrationForm.querySelector("input[name='name']").value;
-        const gender = registrationForm.querySelector('#form-gender').value;
-        const dateOfBirth = registrationForm.querySelector('#form-dob').value;
-        const voiceIntro = registrationForm.querySelector('#form-voice').value;
-        const icon = registrationForm.querySelector('#form-icon').value;
-        const images = registrationForm.querySelector('#form-images').value;
+        const formData = new FormData();
+        formData.append('name', registrationForm.querySelector("input[name='name']").value);
+        formData.append('gender', registrationForm.querySelector("#form-gender").value);
+        formData.append('dateOfBirth', registrationForm.querySelector("input[name='date-of-birth']").value);
+        formData.append('voiceIntro', registrationForm.querySelector("input[name='voice']").files[0]);
+        formData.append('icon', registrationForm.querySelector("input[name='icon']").files[0]);
 
-        const registrationFromContent = { name, gender, dateOfBirth, voiceIntro, icon, images };
+        for (const image of registrationForm.querySelectorAll(".img-class")[0].files) {
+            formData.append("image", image);
+        }
+        
+
+        console.log(formData);
+
 
         const res = fetch('/registration/uploadInfo', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify(registrationFromContent)
+            body: formData
         });
-
-        console.log(registrationFromContent);
-
-
-        // if (res.status === 200) {
-        //     window.location.href = '/match.html';
-        // } else {
-        //     alert("upload failed");
-        // };
-
-    }
-    )
+        
+    })
 };

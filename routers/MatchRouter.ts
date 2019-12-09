@@ -29,7 +29,17 @@ export class MatchRouter {
     }
 
     private getPeople = async (req: Request, res: Response) => {
-        
-        
+        try {
+            if (req.user){
+                const randomPeople = await this.matchService.extract(req.user["id"]); 
+                res.json({ result: true, randomPeople });
+            } else {
+                res.status(400);
+            }
+        } catch (e) {
+            res.json({ result: false }).status(500);
+            console.error('error is found in getPeople function...');
+            console.error(e.message);
+        }
     }
 }
