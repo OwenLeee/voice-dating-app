@@ -2,7 +2,6 @@ import * as multer from 'multer';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        // console.log(file.mimetype);
         let type = file.mimetype;
         let typeSplit = type.split('/');
         let typeArray = typeSplit[1];

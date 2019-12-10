@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { RegistrationService } from "../services/RegistrationService";
 import { pictureAndVoiceUpload } from "../pictureAndVoiceMulter";
 
+
 export class RegistrationRouter {
 
     constructor(private registrationService: RegistrationService) { }
@@ -22,9 +23,8 @@ export class RegistrationRouter {
     private uploadInfo = async (req: Request, res: Response) => {
         try {
             if (req.user) {
-                await this.registrationService.uploadInfo(req.user["id"], req.body);
+                await this.registrationService.uploadInfo(req.user["id"], req.files, req.body);
                 res.json({ result: true });
-                console.log(req.body);
             }
         } catch (error) {
             res.status(404).json({ result: false });

@@ -14,14 +14,30 @@ export class RegistrationService {
 
     constructor(private knex: Knex) { };
 
-    async uploadInfo(user_id: number, body: any) {
-        console.log(user_id, body);
+    async uploadInfo(user_id: number, files: any, body: any) {
         try {
-            //INSERT INTO user_info (user_id, name, gender, date_of_birth, icon) VALUES (5, 'apple', 'female', '1995-10-01', 'apple.jpg');
-            // await this.knex.raw(/*SQL*/ `INSERT INTO "${Table.USER_INFO}" (user_id, name, gender, date_of_birth, icon) VALUES (?, ?, ?, ?, ?)`, [user_id, uploadInfo.name, uploadInfo.gender, uploadInfo.date_of_birth, uploadInfo.icon]);
-            // await this.knex.raw(/*SQL*/ `INSERT INTO "${Table.VOICE}" (user_id, voice_path) VALUES (?, ?)`, [user_id, uploadInfo.voice_path]);
-            // await this.knex.raw(/*SQL*/ `INSERT INTO "${Table.PICTURE}" (user_id, picture_path) VALUES (?, ?)`, [user_id, uploadInfo.picture_path]);
-            await this.knex.raw(/* SQL */` select * from "user_info"`);
+            // upload user_id + body + icon
+            await this.knex.raw(/*SQL*/ `
+            INSERT INTO "user_info" (user_id, name, gender, date_of_birth, icon)
+            VALUES (?, ?, ?, ?, ?)
+            `, [user_id, body.name, body.gender, body.dateOfBirth, files['icon'][0].filename]); 
+
+            // upload files (voiceIntro)
+            await this.knex.raw(/*SQL*/ ` 
+            INSERT INTO "voice" (user_id, voice_path)
+            VALUES (?, ?)
+            `, [user_id, files['voiceIntro'][0].filename]); 
+
+            // upload files (picture)
+            for( let image of files['image']){
+                await this.knex.raw(/*SQL*/ ` 
+                INSERT INTO "picture" (user_id, picture_path)
+                VALUES (?, ?)
+                `, [user_id, image.filename])
+            }
+            
+            //  to be upload (genderInterest + description)
+           
             return true;
         }
         catch (err) {
