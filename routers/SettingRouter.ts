@@ -67,6 +67,8 @@ export class SettingRouter {
         try {
             if (req.user) {
                 await this.settingService.addPictures(req.user["id"], req.files != null ? req.files[0].filename : undefined);
+                console.log('1', req.files[0].filename);
+                console.log('2', req.files);
                 res.redirect('/setting.html');
             }
         }

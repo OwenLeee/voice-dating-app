@@ -16,45 +16,49 @@ export async function seed(knex: Knex): Promise<any> {
 
     const users: { id: number }[] = (await knex.raw(/* sql */ `
             INSERT INTO "user" (email, password) 
-            VALUES(?, ?), (?, ?), (?, ?), (?, ?) RETURNING id`,
+            VALUES(?, ?), (?, ?), (?, ?), (?, ?), (?, ?) RETURNING id`,
         [
             'owen@owen.com', await hashPassword('123456'),
             'sherman@sherman.com', await hashPassword('123456'),
             'peter@peter.com', await hashPassword('123456'),
-            'mary@mary.com', await hashPassword('123456')
+            'mary@mary.com', await hashPassword('123456'),
+            'toxicjason@jason.com', await hashPassword('123456')
         ]
     )).rows;
 
     const packages = (await knex.raw(/* sql */ `
             INSERT INTO "package" (name) 
-            VALUES(?), (?), (?), (?) RETURNING id`,
+            VALUES(?), (?), (?), (?), (?) RETURNING id`,
         [
             'gold',
             'diamond',
             'gold',
-            'diamond'
+            'diamond',
+            'gold'
         ]
     )).rows;
 
     await knex.raw(/* sql */ `
         INSERT INTO "user_info" (name, gender, date_of_birth, icon, description, user_id) 
-        VALUES(?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?)`,
+        VALUES(?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?)`,
         [
             'owen', 'male', '1990-10-01', 'owen.jpg', 'i am handsome', users[0].id,
             'sherman', 'female', '2000-10-01', 'sherman.jpg', 'i am pretty', users[1].id,
             'peter', 'male', '1990-10-01', 'peter.jpg', 'i am peter', users[2].id,
-            'mary', 'female', '2000-10-01', 'mary.jpg', 'i am mary', users[3].id
+            'mary', 'female', '2000-10-01', 'mary.jpg', 'i am mary', users[3].id,
+            'toxicjason', 'male', '1900-10-01', 'jason.jpg', 'i am toxic', users[4].id
         ]
     );
 
     await knex.raw(/* sql */ `
         INSERT INTO "user_package" (user_id, package_id) 
-        VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
+        VALUES(?, ?), (?, ?), (?, ?), (?, ?), (?, ?)`,
         [
             users[0].id, packages[0].id,
             users[1].id, packages[1].id,
             users[2].id, packages[2].id,
             users[3].id, packages[3].id,
+            users[4].id, packages[4].id
         ]
     );
 
@@ -102,23 +106,25 @@ export async function seed(knex: Knex): Promise<any> {
 
     await knex.raw(/* sql */ `
         INSERT INTO "voice" (voice_path, user_id) 
-        VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
+        VALUES(?, ?), (?, ?), (?, ?), (?, ?), (?, ?)`,
         [
             'owen.mp4', users[0].id,
             'sherman.mp4', users[1].id,
             'peter.mp4', users[2].id,
-            'mary.mp4', users[3].id
+            'mary.mp4', users[3].id,
+            'toxic.mp4', users[4].id
         ]
     );
 
     await knex.raw(/* sql */ `
         INSERT INTO "picture" (picture_path, user_id) 
-        VALUES(?, ?), (?, ?), (?, ?), (?, ?)`,
+        VALUES(?, ?), (?, ?), (?, ?), (?, ?), (?, ?)`,
         [
             'owen.jpg', users[0].id,
             'sherman.jpg', users[1].id,
             'peter.jpg', users[2].id,
-            'mary.jpg', users[3].id
+            'mary.jpg', users[3].id,
+            'toxic.jpg', users[4].id
         ]
     );
 };

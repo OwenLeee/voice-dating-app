@@ -19,4 +19,4 @@ export const voiceUpload = multer({
         }
         callback(null, true);
     }
-})
+});
