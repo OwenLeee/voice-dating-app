@@ -1,9 +1,7 @@
 import * as express from "express";
-import * as multer from "multer";
-import * as path from "path";
 import { Request, Response } from "express";
 import { RegistrationService } from "../services/RegistrationService";
-
+import { pictureAndVoiceUpload } from "../pictureAndVoiceMulter";
 
 export class RegistrationRouter {
 
@@ -12,16 +10,11 @@ export class RegistrationRouter {
     router() {
         const router = express.Router();
 
-        const storage = multer.diskStorage({
-            destination: "./pic-test",
-            filename: function (req, file, cb) {
-                cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
-            }
-        });
-
-        const upload = multer({ dest:'pic-test/', storage: storage });
-
-        router.post('/uploadInfo', upload.single("uploadIcon"), this.uploadInfo);
+        router.post('/uploadInfo', pictureAndVoiceUpload.fields([
+            { name: 'voiceIntro', maxCount: 1 },
+            { name: 'icon', maxCount: 1 },
+            { name: 'image', maxCount: 10 }
+          ]), this.uploadInfo);
         
         return router;
     }
@@ -29,10 +22,9 @@ export class RegistrationRouter {
     private uploadInfo = async (req: Request, res: Response) => {
         try {
             if (req.user) {
-                await this.registrationService.uploadInfo(req.user["id"], req.body.uploadInfo);
+                await this.registrationService.uploadInfo(req.user["id"], req.body);
                 res.json({ result: true });
-                res.send({ret_code: '0'});
-                console.log(req.file);
+                console.log(req.body);
             }
         } catch (error) {
             res.status(404).json({ result: false });

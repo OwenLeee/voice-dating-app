@@ -103,10 +103,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user-pics', express.static(path.join(__dirname, 'uploads')));
 app.use(isLoggedIn, express.static(path.join(__dirname, 'private')));
 
+/*  FOR TESTING ONLY */
 // (async() => {
 //     const result = await ratingService.countRating("3 or 1=1" as any as number);
 //     console.log(result);
 // })();
+/*  FOR TESTING ONLY */
 
 const PORT = 8080;
 server.listen(PORT, () => {

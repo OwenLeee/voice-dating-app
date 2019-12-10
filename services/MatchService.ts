@@ -61,19 +61,46 @@ export class MatchService {
     }
 
     async extract(user_id: number) {
-        // const people = await this.knex.raw(/* SQL */ `SELECT * from "user_info"`);
+        const userItself = await this.knex.raw(/*SQL*/ `SELECT gender from "user_info" where id = ${user_id}`)
+        const userGender = userItself.rows[0].gender;
+        const people = await this.knex.raw(/* SQL */ `
+            WITH "rating_average" AS (
+                select to_user_id, 
+                       avg("rating".score) as average_score
+                from "rating"
+                group by to_user_id
+            )
+            SELECT "user_info".id, "name", date_of_birth, icon, description, voice_path, "rating_average".average_score
+            from "user_info" 
+            INNER JOIN "voice"
+            ON "user_info".id = "voice".user_id
+            INNER JOIN "rating_average"
+            ON "user_info".id = "rating_average".to_user_id
+            WHERE "user_info".id != ${user_id} AND gender != '${userGender}'
+            ORDER BY random()
+            Limit 15`);
 
+        console.log(people.rows);
+        return people.rows;
     }
-
-
 }
 
 /*  use for testing only */
 // const knexConfig = require("../knexfile");
 // const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+<<<<<<< HEAD
 
 // (async () => {
 //     const matchService = new MatchService(knex);
 //     console.log(await matchService.like(48, 45));
+=======
+// // const matchService = new MatchService(knex);
+// // matchService.like(37, 40);
+
+// // import {knex} from '../main'
+// (async () => {
+//     const matchService = new MatchService(knex);
+//     console.log(await matchService.extract(1));
+>>>>>>> e3f6febad9cd88573b15023dde2771145f54035d
 // })()
 /*  use for testing only */
