@@ -146,9 +146,9 @@ export class ChatroomService {
 //     await chatRoomService.findChatRoomID(45, 46);
 // })()
 
-const knexConfig = require("../knexfile");
-const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
-(async () => {
-    const chatRoomService = new ChatroomService(knex);
-    await chatRoomService.getMessageByUserID(45, 46);
-})()
+// const knexConfig = require("../knexfile");
+// const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+// (async () => {
+//     const chatRoomService = new ChatroomService(knex);
+//     await chatRoomService.getMessageByUserID(45, 46);
+// })()

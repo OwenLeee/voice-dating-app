@@ -27,6 +27,8 @@ h1 {
   border-radius: 50px;
   background-color: white;
   margin-right: 15px;
+  background-size: contain;
+  background-position: center center;
 }
 
 .senderIcon {
@@ -34,6 +36,8 @@ h1 {
   width: 50px;
   border-radius: 50px;
   background-color: white;
+  background-size: contain;
+  background-position: center center;
 }
 
 .receiver {

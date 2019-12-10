@@ -1,3 +1,5 @@
+
+
 document.querySelector('.writeboard').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -8,9 +10,9 @@ document.querySelector('.writeboard').addEventListener('submit', async (event) =
         method: 'POST',
         body: formData
     });
-    if (res.status === 500) {
-        swal('Only images are allowed!')
-    }
+    // if (res.status === 500) {
+    //     swal('Only images are allowed!')
+    // }
 });
 
 
@@ -24,7 +26,7 @@ document.querySelector('.voiceTape').addEventListener('submit', async (event) =>
         method: 'POST',
         body: formData
     });
-    if (res.status === 500) {
-        swal('Only audio is allowed!')
-    }
+    // if (res.status === 500) {
+    //     swal('Only audio is allowed!')
+    // }
 });
