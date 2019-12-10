@@ -88,19 +88,9 @@ export class MatchService {
 /*  use for testing only */
 // const knexConfig = require("../knexfile");
 // const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
-<<<<<<< HEAD
 
 // (async () => {
 //     const matchService = new MatchService(knex);
 //     console.log(await matchService.like(48, 45));
-=======
-// // const matchService = new MatchService(knex);
-// // matchService.like(37, 40);
-
-// // import {knex} from '../main'
-// (async () => {
-//     const matchService = new MatchService(knex);
-//     console.log(await matchService.extract(1));
->>>>>>> e3f6febad9cd88573b15023dde2771145f54035d
 // })()
 /*  use for testing only */
