@@ -9,7 +9,7 @@ export class MatchRouter {
     router() {
         const router = express.Router();
         router.post('/like', this.like);
-        router.get('/getPeople', this.getPeople)
+        router.get('/randomPeople', this.getPeople)
         return router;
     }
 
@@ -17,7 +17,7 @@ export class MatchRouter {
         try {
             if (req.user) {
                 await this.matchService.like(req.user["id"], req.body.userID);
-                res.json({ result: true });
+                res.json({ result: true});
             } else {
                 res.status(400);
             }

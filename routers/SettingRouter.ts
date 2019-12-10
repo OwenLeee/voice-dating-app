@@ -1,8 +1,9 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { SettingService } from "../services/SettingService";
-import { pictureUpload } from "../pictureMulter";
-import { voiceUpload } from "../voiceMulter";
+// import { pictureUpload } from "../pictureMulter";
+// import { voiceUpload } from "../voiceMulter";
+import { pictureAndVoiceUpload } from "../pictureAndVoiceMulter"
 
 export class SettingRouter {
     constructor(private settingService: SettingService) { }
@@ -13,9 +14,9 @@ export class SettingRouter {
         router.put('/updateName', this.updateName);
         router.put('/updateBirthday', this.updateBirthday);
         router.put('/updateDescription', this.updateDescription);
-        router.post('/addPictures', pictureUpload.array('picture'), this.addPictures);
+        router.post('/addPictures', pictureAndVoiceUpload.array('picture'), this.addPictures);
         router.delete('/deletePictures', this.deletePictures);
-        router.post('/addVoice', voiceUpload.array('mp4'), this.addVoice);
+        router.post('/addVoice', pictureAndVoiceUpload.array('mp4'), this.addVoice);
         router.delete('/deleteVoice', this.deleteVoice);
 
         return router;
@@ -67,6 +68,8 @@ export class SettingRouter {
         try {
             if (req.user) {
                 await this.settingService.addPictures(req.user["id"], req.files != null ? req.files[0].filename : undefined);
+                console.log('1', req.files[0].filename);
+                console.log('2', req.files);
                 res.redirect('/setting.html');
             }
         }

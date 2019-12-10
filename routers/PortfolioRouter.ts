@@ -7,12 +7,12 @@ export class PortfolioRouter {
 
     router() {
         const router = express.Router();
-        router.get('/getAllUserInfo', this.getAllUserInfo);
-        router.get('/getName', this.getName);
-        router.get('/getBirthday', this.getBirthday);
-        router.get('/getDescription', this.getDescription);
-        router.get('/getIcon', this.getIcon);
-        router.get('/getPictures', this.getPictures);
+        router.get('/allUserInfo', this.getAllUserInfo);
+        router.get('/name', this.getName);
+        router.get('/birthday', this.getBirthday);
+        router.get('/description', this.getDescription);
+        router.get('/icon', this.getIcon);
+        router.get('/pictures', this.getPictures);
         return router;
     }
 

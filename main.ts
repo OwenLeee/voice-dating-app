@@ -15,8 +15,8 @@ import { RatingService } from './services/RatingService';
 import { RatingRouter } from './routers/RatingRouter';
 import { RegistrationService } from './services/RegistrationService';
 import { RegistrationRouter } from './routers/RegistrationRouter';
-import { MessageService } from './services/MessageService';
-import { MessageRouter } from './routers/MessageRouter';
+// import { MessageService } from './services/MessageService';
+// import { MessageRouter } from './routers/MessageRouter';
 import { ChatroomService } from './services/ChatroomService';
 import { ChatroomRouter } from './routers/ChatroomRouter';
 import { PortfolioService } from './services/PortfolioService';
@@ -71,21 +71,21 @@ app.use("/registration", registrationRouter.router());
 
 const matchService = new MatchService(knex);
 const matchRouter = new MatchRouter(matchService);
-app.use("/match",  isLoggedIn, matchRouter.router());
+app.use("/match", isLoggedIn, matchRouter.router());
 
 
 const ratingService = new RatingService(knex);
 const ratingRouter = new RatingRouter(ratingService);
-app.use("/rating",  isLoggedIn, ratingRouter.router());
+app.use("/rating", isLoggedIn, ratingRouter.router());
 
 
-const messageService = new MessageService(knex);
-const messageRouter = new MessageRouter(messageService);
-app.use("/message", isLoggedIn, messageRouter.router());
+// const messageService = new MessageService(knex);
+// const messageRouter = new MessageRouter(messageService);
+// app.use("/message", isLoggedIn, messageRouter.router());
 
 
 const chatroomService = new ChatroomService(knex);
-const chatroomRouter = new ChatroomRouter(chatroomService);
+const chatroomRouter = new ChatroomRouter(chatroomService, io);
 app.use("/chatroom", isLoggedIn, chatroomRouter.router());
 
 
@@ -96,11 +96,11 @@ app.use("/portfolio", isLoggedIn, portfolioRouter.router());
 
 const settingService = new SettingService(knex);
 const settingRouter = new SettingRouter(settingService);
-app.use("/setting",isLoggedIn, settingRouter.router());
+app.use("/setting", isLoggedIn, settingRouter.router());
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/user-pics', express.static(__dirname + '/uploads'));
+app.use('/user-pics', express.static(path.join(__dirname, 'private')));
 app.use(isLoggedIn, express.static(path.join(__dirname, 'private')));
 
 /*  FOR TESTING ONLY */
