@@ -2,7 +2,6 @@ import * as multer from 'multer';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log(file.mimetype);
         let type = file.mimetype;
         let typeSplit = type.split('/');
         let typeArray = typeSplit[1];
@@ -11,7 +10,7 @@ const storage = multer.diskStorage({
         } else if (typeArray == "mp3" || typeArray == "wav" || typeArray == "dct"  || typeArray == "m4a" || typeArray == "flac") {
             cb(null, __dirname + '/uploads/voiceTapes');
         } else {
-            return cb(new Error, '/uploads/rubbish');
+            return cb(new Error, '/uploads/rubbish'); // Further improvement  (if (res.status === 500) { swal (" Not Allow!!")}) 
         }
     },
     filename: function (req, file, cb) {
