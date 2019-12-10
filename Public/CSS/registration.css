@@ -1,27 +1,48 @@
-.topic {
-    margin-top: 120px;
-    margin-bottom: 25px;
-    font-family: 'Courgette', cursive;
-    font-size: 45px;
-    justify-content: center;
+.backgroundImage {
+    position:absolute;
+    width:100%;
+    height:120%; 
+    overflow: hidden;
 }
 
 .form {
-    padding-left: 300px;
-    padding-right: 300px;
+    width: 500px;
 }
 
-.form-group, .submit {
+.topic {
+    font-size: 45px;
+    color: rgba(0,0,0,0.5);
+    text-align:center;
+    border-bottom: 3px dotted #4caf50;
+    margin-top: 80px;
+    padding: 0px;
+}
+
+.form-group {
     justify-content: center;
     text-align: center;
+    margin-top: 10px;
+    padding: 0px;
+    margin-bottom: 0px;
 }
 
 .form-group > label {
-    font-size: 25px;
-    font-family: 'Courgette', cursive;
+    font-size: 20px;
     color: rgba(0,0,0,0.5);
 }
 
-.submit {
-    margin-bottom: 120px;
+.file-field label {
+    color: white;
+    font-weight: bold
+}
+
+.submit-btn {
+    width: 150px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid #4caf50;
+    color: white;
+    padding: 5px;
+    font-size: 18px;
+    margin: 12px 0;
+    padding: 0px;
 }

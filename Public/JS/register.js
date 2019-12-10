@@ -1,17 +1,19 @@
 window.onload = function () {
-    main();
-  };
-  
-  function main() {
-    const loginForm = document.getElementById("registerForm");
-    loginForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
+  main();
+};
 
-      const email = loginForm.querySelector("input[name='email']").value;
-      const password = loginForm.querySelector("input[name='password']").value;
+function main() {
+  const loginForm = document.getElementById("registerForm");
+  loginForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-      console.log(email, password);
+    const email = loginForm.querySelector("input[name='email']").value;
+    const password = loginForm.querySelector("input[name='password']").value;
+    const confirmPassword = loginForm.querySelector("input[name='confirm-password']").value;
 
+    console.log(email, password, confirmPassword);
+    
+    if (password === confirmPassword) {
       const res = await fetch('/user/signup', {
         method: 'POST',
         headers: {
@@ -19,18 +21,11 @@ window.onload = function () {
         },
         body: JSON.stringify({ email, password })
       });
-
-//            !! should delete, pls check!! 
-      console.log(res.status);
-      if (res.status === 200) {
-        alert("Yes!Neway")
-        window.location.href = '/login.html';
-      } else {
-        const resJson = await res.json();
-        alert(resJson.message);
-      }
-    })
-  
-  };
-
-  
+      // console.log ("okay");
+      window.location.href = '/login.html';
+    } else {
+      // console.log ("failed");
+      alert("P.S.: Your password is not correct!");
+    };
+  })
+};
