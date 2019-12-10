@@ -6,15 +6,15 @@ const storage = multer.diskStorage({
         let typeSplit = type.split('/');
         let typeArray = typeSplit[1];
         if (typeArray == "png" || typeArray == "jpg" || typeArray == "gif" || typeArray == "jpeg") {
-            cb(null, __dirname + '/uploads/pictures');
+            cb(null, __dirname + '/private/uploads/pictures');
         } else if (typeArray == "mp3" || typeArray == "wav" || typeArray == "dct"  || typeArray == "m4a" || typeArray == "flac") {
-            cb(null, __dirname + '/uploads/voiceTapes');
+            cb(null, __dirname + '/private/uploads/voiceTapes');
         } else {
-            return cb(new Error, '/uploads/rubbish'); // Further improvement  (if (res.status === 500) { swal (" Not Allow!!")}) 
+            return cb(new Error, '/private/uploads/rubbish');
         }
     },
     filename: function (req, file, cb) {
-        console.log(file.fieldname);
+        // console.log(file.fieldname);
         cb(null, `${file.fieldname}-${Date.now()}.${file.mimetype.split('/')[1]}`);
     }
 })

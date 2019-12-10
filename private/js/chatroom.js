@@ -19,7 +19,7 @@ class Chatroom {
         let selfIcon = ''
         selfIcon += `
         <h1>SPright</h1>
-        <img class="senderIcon" src="../uploads/${this.selfInfo[0].icon}">
+        <img class="senderIcon" src="/user-pics/uploads/pictures/${this.selfInfo[0].icon}">
         `
         document.querySelector('.self').innerHTML = selfIcon;
 
@@ -28,7 +28,7 @@ class Chatroom {
         for (let contact of this.contacts) {
             html += `
             <div class="contact" data-id="${contact.user_id}" data-icon="${contact.icon}" data-name="${contact.name}">
-            <img src="../uploads/${contact.icon}">
+            <img src="/user-pics/uploads/pictures/${contact.icon}">
             <div>${contact.name}</div>
             </div>
             `
@@ -62,7 +62,7 @@ class Chatroom {
 
                 let icon = '';
                 icon += `
-                <img class="receiverIcon" src="../uploads/${receiverIcon}">
+                <img class="receiverIcon" src="/user-pics/uploads/pictures/${receiverIcon}">
                 <div>${receiverName}</div>
                 `
                 document.querySelector('.receiver').innerHTML = icon;
