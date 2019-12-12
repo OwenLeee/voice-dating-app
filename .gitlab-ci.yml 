@@ -1,5 +1,16 @@
 image: node:latest
 
+before_script:
+  - global before script
+
+job:
+  before_script:
+    - execute this instead of global before script
+  script:
+    - my command
+  after_script:
+    - execute this after my script
+    
 stages:
   - testing
 
