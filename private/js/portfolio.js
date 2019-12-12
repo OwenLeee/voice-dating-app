@@ -32,7 +32,7 @@ class PortfolioList {
     renderPortfolio() {
 
         let html = '';
-        console.log('5', this.images);
+        // console.log('5', this.images);
         // for (let image of this.images) {
         //     console.log('4', image.user_id);
         //     if (image.user_id == this.selfInfo[0].user_id) {

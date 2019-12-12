@@ -38,7 +38,7 @@
 
             <!-- modal here -->
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary addButton" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-secondary addButton" data-toggle="modal" data-target="#exampleModal">
                 Edit
             </button>
 
@@ -59,8 +59,16 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <!-- select file here -->
+                            <div>
+                                <form class="writeboard" method="POST" action="/setting/pictures"
+                                    enctype="multipart/form-data">
+                                    <input type="file" id="picture" name="picture">
+                                    <input type="submit" class="btn btn-primary" value="Add">
+                                </form>
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                id="close-button">Close</button>
                         </div>
                     </div>
                 </div>
@@ -82,8 +90,9 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="voiceTape" id="voice">
+                <div class="voice-display" id="voice">
                     <!-- <div>voice.mp4</div> -->
+
                 </div>
             </div>
         </div>
@@ -98,23 +107,6 @@
     </div>
 
 
-
-
-    <!--
-    <div>
-        <form class="writeboard" method="POST" action="/setting/addPictures" enctype="multipart/form-data">
-            <input type="file" id="picture" name="picture">
-            <input type="submit" value="提交">
-        </form>
-    </div>
-
-    <div>
-        <form class="voiceTape" method="POST" action="/setting/addVoice" enctype="multipart/form-data">
-            <input type="file" id="mp4" name="mp4">
-            <input type="submit" value="提交">
-        </form>
-    </div>
--->
 
 
 
