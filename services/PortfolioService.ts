@@ -3,11 +3,12 @@ import * as Knex from "knex";
 export class PortfolioService {
     constructor(private knex: Knex) { }
 
-    async getAllInfoByUserID(user_id: number) {
-        await this.knex.raw(/* sql */ `
+    async getInfoByUserID(user_id: number) {
+        const results = (await this.knex.raw(/* sql */ `
             SELECT * FROM "user_info" 
             WHERE user_id = ${user_id}
-        `);
+        `)).rows;
+        return results;
     }
 
     ///* getAllInfoByUserID includes..........
@@ -42,11 +43,22 @@ export class PortfolioService {
 
     ////////// get rating in RatingService //////////
 
+
+
     async getPicturesByUserID(user_id: number) {
-        await this.knex.raw(/* sql */ `
-            SELECT picture_path FROM "picture" 
+        const results = (await this.knex.raw(/* sql */ `
+            SELECT id, picture_path, user_id FROM "picture" 
             WHERE user_id = ${user_id} 
-        `);
+        `)).rows;
+        return results;
+    }
+
+    async getVoiceByUserID(user_id: number) {
+        const results = (await this.knex.raw(/* sql */ `
+            SELECT voice_path FROM voice
+            WHERE user_id = ${user_id}
+        `)).rows
+        return results;
     }
 }
 
@@ -62,5 +74,5 @@ export class PortfolioService {
 
 // (async () => {
 //     const portfolioService = new PortfolioService(knex);
-//     console.log(typeof (await portfolioService.getAllInfoByUserID(41)));
+//     await portfolioService.getPicturesByUserID(45);
 // })()

@@ -7,23 +7,23 @@ export class PortfolioRouter {
 
     router() {
         const router = express.Router();
-        router.get('/allUserInfo', this.getAllUserInfo);
+        router.get('/allUserInfo/:id', this.getUserInfo);
         router.get('/name', this.getName);
         router.get('/birthday', this.getBirthday);
         router.get('/description', this.getDescription);
         router.get('/icon', this.getIcon);
-        router.get('/pictures', this.getPictures);
+        router.get('/pictures/:id', this.getPictures);
+        router.get('/voice/:id', this.getVoice)
         return router;
     }
 
-    private getAllUserInfo = async (req: Request, res: Response) => {
+    private getUserInfo = async (req: Request, res: Response) => {
         try {
-            await this.portfolioService.getAllInfoByUserID(req.body.userID);
-            res.json({ result: true });
+            res.json(await this.portfolioService.getInfoByUserID((req.params as any).id));
         }
         catch (e) {
-            res.json({ result: false }).status(500);
-            console.error('error is found in getAllUserInfo function...');
+            res.status(500).json({ result: false });
+            console.error('error is found in getUserInfo function...');
             console.error(e.message);
         }
     }
@@ -78,13 +78,25 @@ export class PortfolioRouter {
 
     private getPictures = async (req: Request, res: Response) => {
         try {
-            await this.portfolioService.getPicturesByUserID(req.body.userID);
-            res.json({ result: true });
+            res.json(await this.portfolioService.getPicturesByUserID((req.params as any).id));
         }
         catch (e) {
-            res.json({ result: false }).status(500);
+            res.status(500).json({ result: false });
             console.error('error is found in getPictures function...');
             console.error(e.message);
         }
     }
+
+    private getVoice = async (req: Request, res: Response) => {
+        try {
+            res.json(await this.portfolioService.getVoiceByUserID((req.params as any).id));
+        }
+        catch (e) {
+            res.status(500).json({ result: false });
+            console.error('error is found in getVoice function...');
+            console.error(e.message);
+        }
+    }
 }
+
+

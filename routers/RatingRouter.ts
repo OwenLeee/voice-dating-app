@@ -9,7 +9,7 @@ export class RatingRouter {
     router() {
         const router = express.Router();
         router.post('/give', this.rating);
-        router.get('/result', this.getAverageRating);
+        router.get('/result/:id', this.getAverageRating);
         return router;
     }
 
@@ -20,24 +20,18 @@ export class RatingRouter {
             } else { res.json({ status: 400 }) };
         } catch (e) {
             res.json({ result: false });
-            console.error('error is found in like function...');
+            console.error('error is found in rating function...');
             console.error(e.message);
         }
     }
 
     private getAverageRating = async (req: Request, res: Response) => {
         try {
-            if (req.body.userID) {
-                const averageScore = await this.ratingService.countRating(req.body.userID);
-                return averageScore;
-
-            } else {
-                res.json({ status: 400 });
-            }
+            res.json(await this.ratingService.countRating((req.params as any).id));
         }
         catch (e) {
             res.json({ result: false });
-            console.error('error is found in like function...');
+            console.error('error is found in getAverageRating function...');
             console.error(e.message);
         }
     }

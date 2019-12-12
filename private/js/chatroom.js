@@ -62,7 +62,9 @@ class Chatroom {
 
                 let icon = '';
                 icon += `
+                <a href="/portfolio.html?id=${receiverId}" target="_blank">
                 <img class="receiverIcon" src="/user-pics/uploads/pictures/${receiverIcon}">
+                </a>
                 <div>${receiverName}</div>
                 `
                 document.querySelector('.receiver').innerHTML = icon;
@@ -198,7 +200,7 @@ class Chatroom {
             // })
         })
     };
-
+    
 
 };
 

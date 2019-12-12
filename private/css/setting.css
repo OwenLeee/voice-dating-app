@@ -1,111 +1,79 @@
-h1 {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  margin: 0;
-  padding: 0;
-}
-
-.a4paper {
-  width: 43.4px;
-  height: 59.4px;
-  margin: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
-}
-
-.notes {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.wall {
-  display: flex;
-}
-
-.board {
-  width: 250px;
-  height: 250px;
-  background: #821513;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-h2 {
-  color: #ff0000;
-}
-.note textarea {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  box-sizing: border-box;
-  font-size: 18px;
-}
-
-.note {
-  width: 200px;
-  height: 200px;
-  margin: 10px;
-  background: #f4e472;
-  position: relative;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+.carousel-inner {
+  width: 100vw;
+  height: 450px;
   background-size: contain;
-  background-position: center center;
+  position: relative;
 }
 
-.note .fa-edit {
+img {
+  height: 100vh;
+  object-fit: cover;
+}
+
+.nameBox {
+  display: flex;
+  margin: 20px 0px 0px 50px;
+  font-family: "Bree Serif", serif;
+  font-size: 30px;
+}
+
+.rate {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px 0px 0px 0px;
+}
+
+.voiceTape {
+  margin: 20px 0px 0px 40px;
+}
+
+.selfIntro {
+  margin: 20px 0px 0px 50px;
+  font-family: "ABeeZee", sans-serif;
+}
+
+@media only screen and (min-width: 1500px) {
+  .carousel-inner {
+    height: 650px;
+  }
+}
+
+audio {
+  outline: none;
+}
+
+.score {
+  font-size: 30px;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.rating {
+  margin-right: 10px;
+}
+
+.addButton {
   position: absolute;
-  bottom: -20px;
-  right: -20px;
-  background: #ffffff;
-  width: 40px;
+  transform: translate(20%, 30%);
+  width: 80px;
   height: 40px;
+  z-index: 3;
+}
+
+.imageSize {
+  width: 400px;
+  height: 400px;
+  background-size: contain;
+}
+
+.image-wrap {
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  z-index: 2;
+  flex-flow: wrap;
 }
 
-.note .fa-trash-alt {
+.deleteButton {
   position: absolute;
-  top: -20px;
-  right: -20px;
-  background: #ffffff;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  z-index: 2;
-}
-.note .fa-edit:hover {
-  background: #cccccc;
-}
-
-.notes .note:nth-child(odd) {
-  position: relative;
-  top: -5px;
-}
-.notes .note:nth-child(3n) {
-  position: relative;
-  left: -5px;
-}
-
-.pyro {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.loggedIn {
-  display: none;
+  transform: translate(200%, 30%);
+  z-index: 5;
 }
