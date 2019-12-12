@@ -1,0 +1,52 @@
+.carousel-inner {
+  width: 100vw;
+  height: 450px;
+  background-size: contain;
+}
+
+img {
+  height: 100vh;
+  object-fit: cover;
+}
+
+.nameBox {
+  display: flex;
+  margin: 20px 0px 0px 50px;
+  font-family: "Bree Serif", serif;
+  font-size: 30px;
+}
+
+.rate {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px 0px 0px 0px;
+}
+
+.voiceTape {
+  margin: 20px 0px 0px 40px;
+}
+
+.selfIntro {
+  margin: 20px 0px 0px 50px;
+  font-family: "ABeeZee", sans-serif;
+}
+
+@media only screen and (min-width: 1500px) {
+  .carousel-inner {
+    height: 650px;
+  }
+}
+
+audio {
+  outline: none;
+}
+
+.score {
+  font-size: 30px;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.rating {
+  margin-right: 10px;
+}

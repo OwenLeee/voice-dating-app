@@ -11,13 +11,13 @@ export class SettingRouter {
     router() {
         const router = express.Router();
 
-        router.put('/updateName', this.updateName);
-        router.put('/updateBirthday', this.updateBirthday);
-        router.put('/updateDescription', this.updateDescription);
-        router.post('/addPictures', pictureAndVoiceUpload.array('picture'), this.addPictures);
-        router.delete('/deletePictures', this.deletePictures);
-        router.post('/addVoice', pictureAndVoiceUpload.array('mp4'), this.addVoice);
-        router.delete('/deleteVoice', this.deleteVoice);
+        router.put('/name', this.updateName);
+        router.put('/birthday', this.updateBirthday);
+        router.put('/description', this.updateDescription);
+        router.post('/pictures', pictureAndVoiceUpload.array('picture'), this.addPictures);
+        router.delete('/pictures/:picturePath', this.deletePictures);
+        router.post('/voice', pictureAndVoiceUpload.array('mp4'), this.addVoice);
+        router.delete('/voice/:voicePath', this.deleteVoice);
 
         return router;
     }
@@ -82,10 +82,8 @@ export class SettingRouter {
 
     private deletePictures = async (req: Request, res: Response) => {
         try {
-            if (req.user) {
-                await this.settingService.deletePictures(req.user["id"], req.file != null ? req.file.filename : undefined);
-                res.json({ result: true });
-            }
+            await this.settingService.deletePictures((req.user as any).id, (req.params as any).picturePath);
+            res.json({ result: true });
         }
         catch (e) {
             res.status(404).json({ result: false });

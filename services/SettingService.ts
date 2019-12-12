@@ -42,16 +42,17 @@ export class SettingService {
     async deletePictures(user_id: number, picture_path?: string) {
         if (picture_path) {
             await this.knex.raw(/* sql */ `
-            UPDATE picture
-            SET picture_path = null
-            WHERE user_id = ${user_id}
-            AND picture_path = ${picture_path}
+            DELETE FROM picture
+            WHERE user_id = ${user_id} 
+            AND picture_path = ${picture_path};
         `);
         await this.knex.raw(/* sql */ `
         DELETE from picture
         WHERE picture_path = ${picture_path}
     `);
         }
+
+        
     }
 
     async addVoice(user_id: number, voice_path?: string) {

@@ -6,7 +6,7 @@ function main() {
     const registrationForm = document.getElementById("registration-form");
     registrationForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-
+                
         const formData = new FormData();
         formData.append('name', registrationForm.querySelector("input[name='name']").value);
         formData.append('gender', registrationForm.querySelector("#form-gender").value);
@@ -24,7 +24,7 @@ function main() {
 
         const res = await fetch('/registration/uploadInfo', {
             method: 'POST',
-            body: formData
+            body: formData,
         });
 
         let respond = await res.json();

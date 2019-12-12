@@ -9,8 +9,8 @@ export class RatingRouter {
     router() {
         const router = express.Router();
         router.post('/give', this.rating);
-        router.get('/result', this.getAverageRating);
         router.get('/rateScore/:to_user_id', this.rateScore);
+        router.get('/result/:id', this.getAverageRating);
         return router;
     }
 
@@ -30,13 +30,7 @@ export class RatingRouter {
 
     private getAverageRating = async (req: Request, res: Response) => {
         try {
-            if (req.user) {
-                const averageScore = await this.ratingService.countRating(req.user["id"]);
-                return averageScore;
-
-            } else {
-                res.json({ status: 400 });
-            }
+            res.json(await this.ratingService.countRating((req.params as any).id));
         }
         catch (e) {
             res.json({ result: false });
