@@ -31,9 +31,9 @@ function loopMatchingPeople() {
                          <audio controls src="/user-pics/uploads/voiceTapes/${singlePeople.voice_path}"></audio>
                          <div class="tickCrossButton">
                         
-                            <i data-tickid="${singlePeople.user_id}" class="tickButton far fa-check-circle"> </i>
+                            <i data-tickid="${singlePeople.user_id}" class="tickButton far fa-check-circle fa-4x"> </i>
                             
-                            <i data-crossid="${singlePeople.user_id}"class="crossButton far fa-times-circle"></i>
+                            <i data-crossid="${singlePeople.user_id}"class="crossButton far fa-times-circle fa-4x"></i>
                            
                         </div>
                     </div>
