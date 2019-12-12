@@ -27,7 +27,12 @@
                     <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="#">Chatroom</a>
                     <a class="nav-item nav-link" href="#">Subscription</a>
-                    <a class="nav-item nav-link" href="#" tabindex="-1" aria-disabled="true">Setting</a>
+                    <a class="nav-item nav-link" href="#">Setting</a>
+                    <a class="nav-item nav-link" href="#" tabindex="-1" aria-disabled="true">
+                        <form  class="d-flex nav-item" action="/user/logout" method="POST">
+                            <input id="logout" class="nav-item nav-link" type="submit" value="logout">
+                        </form>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -38,63 +43,31 @@
         <div class="matchingList col-sm-3">
             <div class="matchingListTitle">Matching List</div>
             <div class="matchingPeopleList">
-                <!-- <div class="matchingPeopleContent row ">
-                    <img src="../pic-test/icon.png" class="rounded float-left" alt="...">
-                    <h6 class="chatroomName">username</h6>
+
+
+
+            </div>
+
+
+            <div>
+                <a href="/chatroom.html">
                     <button type="button" class="btn" data-toggle="button" aria-pressed="false">Chat</button>
-                </div>
-                <div class="matchingPeopleContent row ">
-                    <img src="../pic-test/icon.png" class="rounded float-left" alt="...">
-                    <h6 class="chatroomName">username</h6>
-                    <button type="button" class="btn" data-toggle="button" aria-pressed="false">Chat</button>
-                </div>
-                <div class="matchingPeopleContent row ">
-                    <img src="../pic-test/icon.png" class="rounded float-left" alt="...">
-                    <h6 class="chatroomName">username</h6>
-                    <button type="button" class="btn" data-toggle="button" aria-pressed="false">Chat</button>
-                </div>
-                <div class="matchingPeopleContent row ">
-                    <img src="../pic-test/icon.png" class="rounded float-left" alt="...">
-                    <h6 class="chatroomName">username</h6>
-                    <button type="button" class="btn" data-toggle="button" aria-pressed="false">Chat</button>
-                </div> -->
+                </a>
             </div>
         </div>
 
         <!-- User selfIntroduction -->
         <div class="showDetailList col-sm-9">
             <div class="introductionList">
-                <!-- <div class="userDetails">
-                    <h4 class="userInfo">Name,Age,rating</h4>
-                    <div class="VideoButton row">
-                        <audio controls src="../pic-test/file_example_MP3_700KB.mp3"></audio>
-                        <div class="tickCrossButton">
-                            <i class="tickButton far fa-check-circle"></i>
-                            <i class="crossButton far fa-times-circle"></i>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="userDetails">
-                    <h4 class="userInfo">Name,Age,rating</h4>
-                    <div class="VideoButton row">
-                        <audio controls src="../pic-test/file_example_MP3_700KB.mp3"></audio>
-                        <div class="tickCrossButton">
-                            <i class="tickButton far fa-check-circle"></i>
-                            <i class="crossButton far fa-times-circle"></i>
-                        </div>
-                    </div>
-                </div> -->
             </div>
+            <div id="refresh">
+                <button id="refresh-button" type="button" class="btn btn-dark">Want More!!</button>
+            </div>
+
         </div>
+
     </div>
-
-
-
-
-
-
-
 
 
 
@@ -112,6 +85,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type='text/javascript' src="./JS/matching.js"></script>
 </body>
 

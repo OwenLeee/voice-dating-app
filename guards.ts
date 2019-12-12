@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
+import { userService } from "./main";
 
 // ============================================================
 // Step 5
 // ============================================================
 export function isLoggedIn(req: Request, res: Response, next: NextFunction) {
-  if (req.user) {    
+  if (req.user) {
     next();
   } else {
     res.redirect("/login.html");
@@ -13,10 +14,10 @@ export function isLoggedIn(req: Request, res: Response, next: NextFunction) {
 
 // Guard for API
 export function isLoggedInForAPI(req: Request, res: Response, next: NextFunction) {
-  if (req.user) {    
+  if (req.user) {
     next();
   } else {
-    res.status(401).json({"msg":"unauthorized"})
+    res.status(401).json({ "msg": "unauthorized" })
   }
 }
 
@@ -24,20 +25,23 @@ export function isLoggedInForAPI(req: Request, res: Response, next: NextFunction
 // ============================================================
 // Step 6
 // ============================================================
-export function loginFlow(req: Request, res: Response, next: NextFunction) {
+export  function loginFlow(req: Request, res: Response, next: NextFunction) {
   console.log(req.body) //Ok, received
   return (err: Error, user: any, info: { message: string }) => {
-    console.log(err, info); 
+    console.log(err, info);
     if (err) {
       res.redirect("/login.html?error=" + err.message);
     } else if (info && info.message) {
       res.redirect("/login.html?error=" + info.message);
     } else {
-      req.logIn(user, err => {
+      req.logIn(user, async err => {
         if (err) {
           res.redirect("/login.html?error=" + "Failed to Login");
-        } else {
-          res.redirect("/chatroom.html"); 
+        } else if (req.user && await userService.checkRegistration(req.user['id'])){
+          res.redirect("/registration.html");
+        }
+         else {
+          res.redirect("/matching.html");
         }
       });
     }

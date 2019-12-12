@@ -47,6 +47,10 @@ export class SettingService {
             WHERE user_id = ${user_id}
             AND picture_path = ${picture_path}
         `);
+        await this.knex.raw(/* sql */ `
+        DELETE from picture
+        WHERE picture_path = ${picture_path}
+    `);
         }
     }
 

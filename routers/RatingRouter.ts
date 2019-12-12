@@ -10,25 +10,28 @@ export class RatingRouter {
         const router = express.Router();
         router.post('/give', this.rating);
         router.get('/result', this.getAverageRating);
+        router.get('/rateScore/:to_user_id', this.rateScore);
         return router;
     }
 
     private rating = async (req: Request, res: Response) => {
         try {
             if (req.user) {
-                res.json(await this.ratingService.rating(req.user["id"], req.body.userID, req.body.score));
-            } else { res.json({ status: 400 }) };
+                res.json({ result: true, likeStatus: await this.ratingService.rating(req.user["id"], req.body.to_user_id, req.body.score) });
+            } else {
+                res.status(400);
+            }
         } catch (e) {
             res.json({ result: false });
-            console.error('error is found in like function...');
+            console.error('error is found in rating function...');
             console.error(e.message);
         }
     }
 
     private getAverageRating = async (req: Request, res: Response) => {
         try {
-            if (req.body.userID) {
-                const averageScore = await this.ratingService.countRating(req.body.userID);
+            if (req.user) {
+                const averageScore = await this.ratingService.countRating(req.user["id"]);
                 return averageScore;
 
             } else {
@@ -37,7 +40,22 @@ export class RatingRouter {
         }
         catch (e) {
             res.json({ result: false });
-            console.error('error is found in like function...');
+            console.error('error is found in getAverageRating function...');
+            console.error(e.message);
+        }
+    }
+
+    private rateScore = async (req: Request, res: Response) => {
+        try {
+            if (req.user && req.params.to_user_id) {
+                res.json({result: await this.ratingService.personScore(req.user["id"], parseInt(req.params.to_user_id))})
+            }else {
+                res.json({ status: 400 });
+            }
+        }
+        catch (e) {
+            res.json({ result: false });
+            console.error('error is found in rateScore function...');
             console.error(e.message);
         }
     }

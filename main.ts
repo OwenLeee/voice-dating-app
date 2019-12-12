@@ -59,7 +59,7 @@ io.use((socket, next) => {
 import './socket';
 
 
-const userService = new UserService(knex);
+export const userService = new UserService(knex);
 const userRouter = new UserRouter(userService);
 app.use("/user", userRouter.router());
 

@@ -16,8 +16,8 @@ export class MatchRouter {
     private like = async (req: Request, res: Response) => {
         try {
             if (req.user) {
-                await this.matchService.like(req.user["id"], req.body.userID);
-                res.json({ result: true});
+                // matchStatus: false=not match, true=matched 
+                res.json({ result: true, matchStatus: await this.matchService.like(req.user["id"], req.body.userID) });
             } else {
                 res.status(400);
             }
@@ -30,8 +30,8 @@ export class MatchRouter {
 
     private getPeople = async (req: Request, res: Response) => {
         try {
-            if (req.user){
-                const randomPeople = await this.matchService.extract(req.user["id"]); 
+            if (req.user) {
+                const randomPeople = await this.matchService.drawRandomPeople(req.user["id"]);
                 res.json({ result: true, randomPeople });
             } else {
                 res.status(400);
