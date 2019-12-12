@@ -6,7 +6,7 @@ function main() {
     const registrationForm = document.getElementById("registration-form");
     registrationForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-
+                
         const formData = new FormData();
         formData.append('name', registrationForm.querySelector("input[name='name']").value);
         formData.append('gender', registrationForm.querySelector("#form-gender").value);
@@ -21,11 +21,10 @@ function main() {
 
         console.log(formData);
 
-
         const res = fetch('/registration/uploadInfo', {
             method: 'POST',
-            body: formData
+            body: formData,
         });
-        
+        window.location.href = '/matching.html';
     })
 };
