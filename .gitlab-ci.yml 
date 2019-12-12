@@ -1,0 +1,22 @@
+image: node:latest
+
+stages:
+  - testing
+
+variables:
+  POSTGRES_DB: project2
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST: postgres
+
+testing:
+  services:
+    - postgres:latest
+
+  before_script:
+    - npm install -g yarn 
+    - yarn install
+    - yarn knex migrate:latest --env testing
+  stage: testing
+  script:
+    - yarn jest

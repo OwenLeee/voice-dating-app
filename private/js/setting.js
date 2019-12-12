@@ -118,7 +118,7 @@ class Setting {
         let rating = '';
         rating += `
         <div class="rating">rating</div>
-            <div class="score">${this.rates[0].avg}/5</div>
+            <div class="score">${this.rates[0].avg ? this.rates[0].avg : '--'}/5</div>
             `
         document.querySelector('#rating').innerHTML = rating;
 
