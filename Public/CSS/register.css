@@ -8,7 +8,7 @@
 }
 
 .container{
-    width: 280px;
+    width: 300px;
     position: absolute;
     top: 45%;
     left: 50%;
@@ -18,7 +18,7 @@
 
 .container h1 {
     margin-bottom: 30px;
-    border-bottom: 3px dotted #4caf50;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
 }
 
 .form-group input{
@@ -35,8 +35,8 @@
 
 .btn{
     width: 100%;
-    background-color: rgba(0,0,0,0.20);
-    border: 2px solid #4caf50;
+    background-color: rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,0,0,0.5);
     color: white;
     padding: 5px;
     font-size: 18px;

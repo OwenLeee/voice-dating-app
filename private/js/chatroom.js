@@ -18,20 +18,20 @@ class Chatroom {
     renderContacts() {
         let selfIcon = ''
         selfIcon += `
-        <h1>SPright</h1>
-        <img class="senderIcon" src="/user-pics/uploads/pictures/${this.selfInfo[0].icon}">
-        `
+            <h1>SPright</h1>
+            <img class="senderIcon" src="/user-pics/uploads/pictures/${this.selfInfo[0].icon}">
+            `
         document.querySelector('.self').innerHTML = selfIcon;
 
         let html = '';
         // let receiverIcon = '';
         for (let contact of this.contacts) {
             html += `
-            <div class="contact" data-id="${contact.user_id}" data-icon="${contact.icon}" data-name="${contact.name}">
-            <img src="/user-pics/uploads/pictures/${contact.icon}">
-            <div>${contact.name}</div>
-            </div>
-            `
+                <div class="contact" data-id="${contact.user_id}" data-icon="${contact.icon}" data-name="${contact.name}">
+                <img src="/user-pics/uploads/pictures/${contact.icon}">
+                <div>${contact.name}</div>
+                </div>
+                `
             // receiverIcon += `
             // <div class="receiverIcon">${contact.icon}
             // </div>
@@ -200,7 +200,7 @@ class Chatroom {
             // })
         })
     };
-    
+
 
 };
 

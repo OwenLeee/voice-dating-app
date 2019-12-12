@@ -25,7 +25,7 @@ function main() {
       window.location.href = '/login.html';
     } else {
       // console.log ("failed");
-      alert("P.S.: Your password is not correct!");
+      swal("Your password is not correct !");
     };
   })
 };
