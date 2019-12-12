@@ -4,7 +4,11 @@
 }
 
 .navbar-brand {
-    font-size: 30px;
+    font-size: 35px;
+}
+
+.navbar-nav a {
+    font-size: larger;
 }
 
 #logout {
@@ -19,27 +23,33 @@
 /* total page */
 .pagesContent {
     padding: 64px 0px 0px;
+    height:-webkit-fill-available;
 }
 
 /* matching list */
 .matchingList {
-    border: solid 1px black;
-    background-color: whitesmoke;
-    padding: 35px 0px 0px 0px;
+    border: solid 1px rgba(0,0,0,0.5);
+    background-color:rgba(10,186,181,0.25);
+    padding:0;
 }
 
 .matchingListTitle {
+    padding-top: 25px;
     font-family: 'Courgette', cursive;
     font-size: 30px;
+    background-color: white;
     text-align: center;
 }
-
 
 .matchingPeopleList>div {
     height: 60px;
     margin: 0px;
-    border: solid 1px black;
+    border: solid 1px rgba(0,0,0,0.5);
     border-collapse: collapse;
+}
+
+.matchingPeopleList>div:hover {
+    background-color: rgba(10,186,181,0.5);
 }
 
 .matchingPeopleContent>img {
@@ -67,15 +77,18 @@
 }
 
 .showDetailList {
-    border: solid 1px black;
+    border: solid 1px rgba(0,0,0,0.5);
     padding: 0px;
 }
 
 /* User selfIntroduction */
 .userDetails {
-    border: solid 1px black;
-    border-radius: 10px;
+    border: solid 1px rgba(0,0,0,0.5);
     height: 140px;
+}
+
+.userDetails:hover {
+    background-color: rgba(0,0,50,0.4);
 }
 
 .tickCrossButton {
@@ -87,4 +100,5 @@
 #refresh {
     display: flex;
     justify-content: flex-end;
+    padding-top: 10px;
 }
