@@ -6,7 +6,7 @@ function main() {
     const registrationForm = document.getElementById("registration-form");
     registrationForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-
+                
         const formData = new FormData();
         formData.append('name', registrationForm.querySelector("input[name='name']").value);
         formData.append('gender', registrationForm.querySelector("#form-gender").value);
@@ -16,16 +16,22 @@ function main() {
         for (const image of registrationForm.querySelectorAll(".img-class")[0].files) {
             formData.append("image", image);
         }
-        
+
         formData.append('description', registrationForm.querySelector("input[name='description']").value);
 
         console.log(formData);
 
 
-        const res = fetch('/registration/uploadInfo', {
+        const res = await fetch('/registration/uploadInfo', {
             method: 'POST',
-            body: formData
+            body: formData,
         });
-        
+
+        let respond = await res.json();
+        console.log(respond); 
+
+        if (respond.result) {
+            window.location.href = '/matching.html';
+        }
     })
 };

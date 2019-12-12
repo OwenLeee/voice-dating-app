@@ -7,14 +7,14 @@ interface User {
     password: string;
 }
 
-export class UserService  {
+export class UserService {
 
-    constructor (private knex: Knex) {}; 
+    constructor(private knex: Knex) { };
 
     async getUsers(email: string): Promise<User> {
         try {
             const users = await this.knex.raw(/*SQL*/ `SELECT * from "${Table.USER}" where email = ?`, [email]);
-            return users.rows[0];       
+            return users.rows[0];
         }
         catch (err) {
             throw err;
@@ -31,11 +31,25 @@ export class UserService  {
             return false;
         }
     }
+
+    async checkRegistration(userID: number) {
+        try {
+            let checkCount = await this.knex.raw(/*SQL*/ `
+                SELECT * from "user_info"
+                WHERE user_id = ? 
+            `, [userID]);
+
+            if (checkCount.rowCount === 0) {
+                return true
+            }
+
+            return false
+
+        }
+        catch (err) {
+            return false;
+        }
+    }
+
+
 }
-
-
-
-
-
-
-

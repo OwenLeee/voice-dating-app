@@ -18,9 +18,9 @@ export class RegistrationService {
         try {
             // upload user_id + body + icon
             await this.knex.raw(/*SQL*/ `
-            INSERT INTO "user_info" (user_id, name, gender, date_of_birth, icon)
-            VALUES (?, ?, ?, ?, ?)
-            `, [user_id, body.name, body.gender, body.dateOfBirth, files['icon'][0].filename]); 
+            INSERT INTO "user_info" (user_id, name, gender, date_of_birth, icon, description)
+            VALUES (?, ?, ?, ?, ?, ?)
+            `, [user_id, body.name, body.gender, body.dateOfBirth, files['icon'][0].filename, body.description]); 
 
             // upload files (voiceIntro)
             await this.knex.raw(/*SQL*/ ` 

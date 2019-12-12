@@ -15,8 +15,12 @@ export class MatchRouter {
 
     private like = async (req: Request, res: Response) => {
         try {
-            await this.matchService.like((req.user as any).id, req.body.userID);
-            res.json({ result: true });
+            if (req.user) {
+                // matchStatus: false=not match, true=matched 
+                res.json({ result: true, matchStatus: await this.matchService.like(req.user["id"], req.body.userID) });
+            } else {
+                res.status(400);
+            }
         } catch (e) {
             res.json({ result: false }).status(500);
             console.error('error is found in like function...');
@@ -27,7 +31,7 @@ export class MatchRouter {
     private getPeople = async (req: Request, res: Response) => {
         try {
             if (req.user) {
-                const randomPeople = await this.matchService.extract(req.user["id"]);
+                const randomPeople = await this.matchService.drawRandomPeople(req.user["id"]);
                 res.json({ result: true, randomPeople });
             } else {
                 res.status(400);
