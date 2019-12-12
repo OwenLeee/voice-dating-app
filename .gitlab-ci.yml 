@@ -1,21 +1,10 @@
 image: node:latest
 
-before_script:
-  - global before script
-
-job:
-  before_script:
-    - execute this instead of global before script
-  script:
-    - my command
-  after_script:
-    - execute this after my script
-    
 stages:
   - testing
 
 variables:
-  POSTGRES_DB: bad009-test
+  POSTGRES_DB: project2
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_HOST: postgres
