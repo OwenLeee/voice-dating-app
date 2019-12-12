@@ -7,7 +7,7 @@ import { pictureAndVoiceUpload } from "../pictureAndVoiceMulter";
 export class RegistrationRouter {
 
     constructor(private registrationService: RegistrationService) { }
-    
+
     router() {
         const router = express.Router();
 
@@ -15,8 +15,8 @@ export class RegistrationRouter {
             { name: 'voiceIntro', maxCount: 1 },
             { name: 'icon', maxCount: 1 },
             { name: 'image', maxCount: 10 }
-          ]), this.uploadInfo);
-        
+        ]), this.uploadInfo);
+
         return router;
     }
 
@@ -25,6 +25,8 @@ export class RegistrationRouter {
             if (req.user) {
                 await this.registrationService.uploadInfo(req.user["id"], req.files, req.body);
                 res.json({ result: true });
+            } else {
+                res.json({ result: false});
             }
         } catch (error) {
             res.status(404).json({ result: false });

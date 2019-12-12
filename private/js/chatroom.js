@@ -2,7 +2,7 @@
 // function send(id, message) {
 //     socket.emit("serverReceive", { userID: id, message });
 // };
-const socket = io.connect('localhost:8080');
+const socket = io.connect();
 
 
 
@@ -18,9 +18,17 @@ class Chatroom {
     renderContacts() {
         let selfIcon = ''
         selfIcon += `
+<<<<<<< HEAD
             <h1>SPright</h1>
             <img class="senderIcon" src="/user-pics/uploads/pictures/${this.selfInfo[0].icon}">
             `
+=======
+        <div class="logo">SPright</div>
+        <a href="/setting.html" target="_blank">
+        <img class="senderIcon" src="/user-pics/uploads/pictures/${this.selfInfo[0].icon}">
+        </a>
+        `
+>>>>>>> ac72ebda017d402e73253238da30f6b237832efb
         document.querySelector('.self').innerHTML = selfIcon;
 
         let html = '';

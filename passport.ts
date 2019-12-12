@@ -1,10 +1,8 @@
 import * as passport from 'passport';
 import * as passportLocal from 'passport-local';
 import { checkPassword } from "./hash";
-import { UserService } from './services/UserService';
-import { knex } from './main'
+import { userService } from './main'
 
-const userService = new UserService(knex);
 
 passport.serializeUser(function (user: { id: number }, done) {
     console.log('serializeUser');

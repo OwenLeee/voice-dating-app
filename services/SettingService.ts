@@ -6,25 +6,28 @@ export class SettingService {
     async updateName(user_id: number, changedName: string) {
         await this.knex.raw(/* sql */ `
         UPDATE user_info
-        SET name = ${changedName}
-        WHERE user_id = ${user_id}
-        `);
+        SET name = ?
+        WHERE user_id = ?
+        `, [changedName, user_id]
+        );
     }
 
     async updateBirthday(user_id: number, date_of_birth: Date) {
         await this.knex.raw(/* sql */ `
         UPDATE user_info
-        SET date_of_birth = ${date_of_birth}
-        WHERE user_id = ${user_id}
-        `);
+        SET date_of_birth = ?
+        WHERE user_id = ?
+        `, [date_of_birth, user_id]
+        );
     }
 
     async updateDescription(user_id: number, description: string) {
         await this.knex.raw(/* sql */ `
         UPDATE user_info
-        SET description = ${description}
-        WHERE user_id = ${user_id}
-        `);
+        SET description = ?
+        WHERE user_id = ?
+        `, [description, user_id]
+        );
     }
 
     ////////// get rating in RatingService //////////
@@ -43,19 +46,21 @@ export class SettingService {
         if (picture_path) {
             await this.knex.raw(/* sql */ `
             DELETE FROM picture
-            WHERE user_id = ${user_id} 
-            AND picture_path = ${picture_path};
-        `);
+            WHERE user_id = ? 
+            AND picture_path = ?;`, 
+            [user_id, picture_path]
+            );
         }
 
-        
+
     }
 
-    async addVoice(user_id: number, voice_path?: string) {
+    async changeVoice(user_id: number, voice_path?: string) {
         if (voice_path) {
             await this.knex.raw(/* sql */ `
-            INSERT INTO voice (voice_path, user_id) 
-            VALUES (?, ?)`, [voice_path, user_id]
+            UPDATE voice SET voice_path = ?
+            WHERE user_id = ?;`, 
+            [voice_path, user_id]
             );
         }
     }
@@ -65,9 +70,9 @@ export class SettingService {
             await this.knex.raw(/* sql */ `
             UPDATE voice
             SET voice_path = null
-            WHERE user_id = ${user_id}
-            AND voice_path = ${voice_path}
-        `);
+            WHERE user_id = ?
+            AND voice_path = ?`, 
+            [user_id, voice_path]);
         }
     }
 }

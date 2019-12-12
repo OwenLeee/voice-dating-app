@@ -16,7 +16,7 @@ export class SettingRouter {
         router.put('/description', this.updateDescription);
         router.post('/pictures', pictureAndVoiceUpload.array('picture'), this.addPictures);
         router.delete('/pictures/:picturePath', this.deletePictures);
-        router.post('/voice', pictureAndVoiceUpload.array('mp4'), this.addVoice);
+        router.put('/voice', pictureAndVoiceUpload.array('mp3'), this.changedVoice);
         router.delete('/voice/:voicePath', this.deleteVoice);
 
         return router;
@@ -66,11 +66,13 @@ export class SettingRouter {
 
     private addPictures = async (req: Request, res: Response) => {
         try {
-            if (req.user) {
-                await this.settingService.addPictures(req.user["id"], req.files != null ? req.files[0].filename : undefined);
-                console.log('1', req.files[0].filename);
-                console.log('2', req.files);
-                res.redirect('/setting.html');
+            if (req.user && req.files != null) {
+                await this.settingService.addPictures(req.user["id"], req.files[0].filename);
+                // console.log('1', req.files[0].filename);
+                // console.log('2', req.files);
+                res.json({ picturePath: req.files[0].filename });
+            } else {
+                res.status(400).json({ results: false })
             }
         }
         catch (e) {
@@ -92,12 +94,9 @@ export class SettingRouter {
         }
     }
 
-    private addVoice = async (req: Request, res: Response) => {
+    private changedVoice = async (req: Request, res: Response) => {
         try {
-            if (req.user) {
-                await this.settingService.addVoice(req.user["id"], req.files != null ? req.files[0].filename : undefined);
-                res.redirect('/setting.html');
-            }
+            res.json(await this.settingService.changeVoice((req.user as any).id, req.files != null ? req.files[0].filename : undefined));
         }
         catch (e) {
             res.status(404).json({ result: 'voice not found' });

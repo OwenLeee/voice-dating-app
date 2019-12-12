@@ -35,14 +35,17 @@ export class MatchService {
         } else if (parseInt(alreadyLiked) === 0 && parseInt(chatRoomAlreadyExist) === 0 && parseInt(chatRoomAlreadyExist2) === 0) {
             await this.knex.raw(/* sql */ `INSERT INTO "like" (from_user_id, to_user_id) 
                 VALUES (?, ?)`, [from_user_id, to_user_id]);
+            return false;
         } else if (parseInt(alreadyLiked) > 0 && parseInt(chatRoomAlreadyExist) === 0 && parseInt(chatRoomAlreadyExist2) === 0) {
             await this.knex.raw(/* sql */ `INSERT INTO "like" (from_user_id, to_user_id) 
                 VALUES (?, ?)`, [from_user_id, to_user_id]);
             await this.knex.raw(/* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) 
-                VALUES (?, ?)`, [from_user_id, to_user_id]); 
+                VALUES (?, ?)`, [from_user_id, to_user_id]);
+            return true;
         } else if ((parseInt(chatRoomAlreadyExist) > 0 || parseInt(chatRoomAlreadyExist2) > 0)) { // When to use??
             throw new Error("Chat Room Already Exist");
         }
+        return false;
 
         // if (parseInt(duplicate) > 0 || from_user_id == to_user_id) {
         //     throw new Error("Duplicate!");
@@ -60,37 +63,68 @@ export class MatchService {
 
     }
 
-    async extract(user_id: number) {
-        const userItself = await this.knex.raw(/*SQL*/ `SELECT gender from "user_info" where id = ${user_id}`)
+    async drawRandomPeople(user_id: number) {
+        const userItself = await this.knex.raw(/*SQL*/ `SELECT gender from "user_info" where user_id = ${user_id}`)
         const userGender = userItself.rows[0].gender;
+        // const userLikedPerson = await this.knex.raw(/*SQL*/ `SELECT to_user_id FROM "like" WHERE from_user_id = ${user_id}`); 
+        // console.log(userLikedPerson); 
+        // console.log(userLikedPerson.rows); 
+        // console.log(userLikedPerson.rows[0].to_user_id); 
+        const likedPeople = await this.knex.raw(/* SQL */ ` 
+            SELECT to_user_id FROM "like" 
+            WHERE from_user_id = ${user_id};
+        `)
+
+        const avgScore = await this.knex.raw(/*SQL*/ `
+        select to_user_id, avg(score) as average_score
+        from "rating" 
+        group by to_user_id
+        `)
+
         const people = await this.knex.raw(/* SQL */ `
-            WITH "rating_average" AS (
-                select to_user_id, 
-                       avg("rating".score) as average_score
-                from "rating"
-                group by to_user_id
-            )
-            SELECT "user_info".id, "name", date_of_birth, icon, description, voice_path, "rating_average".average_score
+            
+            SELECT  "user_info".user_id, "name", date_of_birth, icon, description, voice_path
             from "user_info" 
             INNER JOIN "voice"
-            ON "user_info".id = "voice".user_id
-            INNER JOIN "rating_average"
-            ON "user_info".id = "rating_average".to_user_id
-            WHERE "user_info".id != ${user_id} AND gender != '${userGender}'
+            ON "user_info".user_id = "voice".user_id
+            WHERE "user_info".user_id != ${user_id} 
+            AND gender != '${userGender}' 
             ORDER BY random()
-            Limit 15`);
+            Limit 20`);
 
-        console.log(people.rows);
-        return people.rows;
+        // console.log(likedPeople.rows);
+
+        let newLikedPeople = likedPeople.rows.map((e: { to_user_id: number }) => e.to_user_id)
+        //    console.log(newLikedPeople);
+        let newPeople = people.rows.filter((e: { user_id: number }) => !newLikedPeople.includes(e.user_id))
+
+        for (let i = 0; i < newPeople.length; i++) {
+            for (let j = 0; j < avgScore.rows.length; j++) {
+                if (newPeople[i].user_id == avgScore.rows[j].to_user_id) {
+                    newPeople[i].average_score = avgScore.rows[j].average_score
+                }
+            }
+            if (!newPeople[i].average_score) {
+                newPeople[i].average_score = -1;
+            }
+        }
+      
+        return newPeople;
     }
+        
+
+
 }
 
-/*  use for testing only */
+
+// /*  use for testing only */
 // const knexConfig = require("../knexfile");
 // const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
 // (async () => {
 //     const matchService = new MatchService(knex);
-//     console.log(await matchService.like(48, 45));
+//     console.log(await matchService.drawRandomPeople(15));
 // })()
 /*  use for testing only */
+
+

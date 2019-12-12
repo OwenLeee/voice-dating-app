@@ -13,9 +13,10 @@
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 3;
 }
 
-h1 {
+.logo {
   font-family: "Gupter", serif;
   font-size: 40px;
   color: white;

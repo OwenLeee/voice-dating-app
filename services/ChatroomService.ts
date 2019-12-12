@@ -7,15 +7,15 @@ export class ChatroomService {
 
         const chatRoomExist = (await this.knex.raw(/* sql */ `
             SELECT count(*) FROM "chat_room" 
-            WHERE user_id_1 = ${from_user_id} 
-            AND user_id_2 = ${to_user_id}
-        `)).rows[0].count;
+            WHERE user_id_1 = ? 
+            AND user_id_2 = ?
+        `, [from_user_id, to_user_id])).rows[0].count;
 
         const chatRoomExist2 = (await this.knex.raw(/* sql */ `
             SELECT count(*) FROM "chat_room" 
-            WHERE user_id_1 = ${to_user_id} 
-            AND user_id_2 = ${from_user_id}
-        `)).rows[0].count;
+            WHERE user_id_1 = ?
+            AND user_id_2 = ?
+        `, [to_user_id, from_user_id])).rows[0].count;
 
         // console.log(chatRoomExist, chatRoomExist2);
         if (chatRoomExist == 0 && chatRoomExist2 == 0) {
@@ -28,8 +28,9 @@ export class ChatroomService {
     async findChatRoomID(from_user_id: number, to_user_id: number) {
         const findChatID = (await this.knex.raw(/* sql */ `
             SELECT id FROM "chat_room" 
-            WHERE (user_id_1 = ${from_user_id} AND user_id_2 = ${to_user_id})
-            OR (user_id_1 = ${to_user_id} AND user_id_2 = ${from_user_id})`
+            WHERE (user_id_1 = ? AND user_id_2 = ?)
+            OR (user_id_1 = ? AND user_id_2 = ?)`, 
+            [from_user_id, to_user_id, to_user_id, from_user_id]
         )).rows;
 
         // const findChatIDReverse = (await this.knex.raw(/* sql */ `
@@ -56,14 +57,14 @@ export class ChatroomService {
                                 SELECT icon, name, user_id FROM chat_room 
                                 JOIN user_info 
                                 ON user_info.user_id = user_id_2 
-                                WHERE user_id_1 = ${userId}`)).rows
+                                WHERE user_id_1 = ?`, [userId])).rows
         userInfo = userInfo.concat(userInfo1);
 
         let userInfo2 = (await this.knex.raw(/* sql */ `
                                 SELECT icon, name, user_id FROM chat_room 
                                 JOIN user_info 
                                 ON user_info.user_id = user_id_1 
-                                WHERE user_id_2 = ${userId}`)).rows
+                                WHERE user_id_2 = ?`, [userId])).rows
         userInfo = userInfo.concat(userInfo2);
 
 
@@ -101,10 +102,10 @@ export class ChatroomService {
 
         let results = (await this.knex.raw(/* sql */ `
             SELECT * FROM message 
-            WHERE(from_user_id = ${from_user_id} OR from_user_id = ${to_user_id}) 
-            AND(to_user_id = ${to_user_id} OR to_user_id = ${from_user_id}) 
+            WHERE(from_user_id = ? OR from_user_id = ?) 
+            AND(to_user_id = ? OR to_user_id = ?) 
             ORDER BY created_at ASC
-        `)).rows
+        `, [from_user_id, to_user_id, to_user_id, from_user_id])).rows
 
         // console.log(results);
         return results;
@@ -114,8 +115,8 @@ export class ChatroomService {
     async getSelfInfo(userId: number) {
         let results = (await this.knex.raw(/* sql */ `
             SELECT * FROM user_info 
-            WHERE user_id = ${userId};
-        `)).rows        
+            WHERE user_id = ?;
+        `, [userId])).rows        
         return results;
     }
 

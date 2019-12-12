@@ -16,15 +16,22 @@ function main() {
         for (const image of registrationForm.querySelectorAll(".img-class")[0].files) {
             formData.append("image", image);
         }
-        
+
         formData.append('description', registrationForm.querySelector("input[name='description']").value);
 
         console.log(formData);
 
-        const res = fetch('/registration/uploadInfo', {
+
+        const res = await fetch('/registration/uploadInfo', {
             method: 'POST',
             body: formData,
         });
-        window.location.href = '/matching.html';
+
+        let respond = await res.json();
+        console.log(respond); 
+
+        if (respond.result) {
+            window.location.href = '/matching.html';
+        }
     })
 };

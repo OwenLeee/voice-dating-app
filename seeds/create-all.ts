@@ -108,11 +108,11 @@ export async function seed(knex: Knex): Promise<any> {
         INSERT INTO "voice" (voice_path, user_id) 
         VALUES(?, ?), (?, ?), (?, ?), (?, ?), (?, ?)`,
         [
-            'owen.mp4', users[0].id,
-            'sherman.mp4', users[1].id,
-            'peter.mp4', users[2].id,
-            'mary.mp4', users[3].id,
-            'toxic.mp4', users[4].id
+            'owen.mp3', users[0].id,
+            'sherman.mp3', users[1].id,
+            'peter.mp3', users[2].id,
+            'mary.mp3', users[3].id,
+            'toxic.mp3', users[4].id
         ]
     );
 
