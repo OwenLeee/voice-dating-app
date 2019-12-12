@@ -33,23 +33,23 @@ function loopMatchingPeople(singleCollection) {
             e.preventDefault();
             let userID = tickBtn.dataset.tickid;
             console.log(userID);
-            console.log(tickBtn.dataset); 
-            
-            console.log(await(await fetch('/match/like', {
+            console.log(tickBtn.dataset);
+
+            await fetch('/match/like', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
                 },
-                body: JSON.stringify({
-                    parseInt(userID); 
-                })
-            })).json())
+                body: JSON.stringify(
+                    parseInt(userID)  //???? {} 
+                )
+            })
         });
     });
 
     document.querySelectorAll(".crossButton").forEach(crossBtn => {
         crossBtn.addEventListener("click", function (e) {
-// TO BE ADD DISLIKE FUNCTION! 
+            // TO BE ADD DISLIKE FUNCTION! 
         });
     });
 }
@@ -66,8 +66,24 @@ function getAge(dateString) {
 }
 
 async function getMatchedChatroom() {
-    const res = await fetch ('/')
-
+    const res = await fetch('/chatroom/findContactInfo');
+    contacts = await res.json();
+    console.log(contacts);
+    loopMatchedChatroom(contacts);
 }
 
-function loopMatchedChatroom ()
+function loopMatchedChatroom(peopleContacts) {
+
+    let html = '';
+    for (let contact of peopleContacts) {
+        html += `
+                <div class="matchingPeopleContent row ">
+                    <img src="/user-pics/pictures/${contact.icon}" class="rounded float-left" alt="...">
+                    <h6 class="chatroomName">${contact.name}</h6>
+                    <button type="button" class="btn" data-toggle="button" aria-pressed="false">Chat</button>
+                </div>`
+    }
+    document.querySelector('.matchingPeopleList').innerHTML = html;
+}
+
+getMatchedChatroom ();
