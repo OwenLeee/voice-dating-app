@@ -39,9 +39,9 @@ deploy:
   script:
     - ssh ubuntu@18.141.83.223
         "cd project-2---spright;
-          git pull origin master;
-          git checkout production;
-          git pull origin production;
-          yarn install;
-          yarn knex migrate:latest --env production;
-          forever restart index.js;"
+          sudo git pull origin master;
+          sudo git checkout production;
+          sudo git pull origin production;
+          sudo yarn install;
+          sudo yarn knex migrate:latest --env production;
+          sudo forever restart index.js;"
