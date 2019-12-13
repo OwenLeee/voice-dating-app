@@ -132,7 +132,7 @@ async function loopMatchedChatroom(peopleContacts) {
                     </button>
     
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal${contact.user_id}" tabindex="-1" role="dialog"
+                    <div class="modal fade " id="exampleModal${contact.user_id}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModal${contact.user_id}Label" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
