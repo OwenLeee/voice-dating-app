@@ -30,10 +30,10 @@ function loopMatchingPeople() {
                         <div class="VideoButton row">
                          <audio controls src="/user-pics/uploads/voiceTapes/${singlePeople.voice_path}"></audio>
                          <div class="tickCrossButton">
-                        
-                            <i data-tickid="${singlePeople.user_id}" class="tickButton far fa-check-circle fa-4x"> </i>
+                         
+                            <i data-tickid="${singlePeople.user_id}" class="tickButton fas fa-heart fa-4x"> </i>
                             
-                            <i data-crossid="${singlePeople.user_id}"class="crossButton far fa-times-circle fa-4x"></i>
+                            <i data-crossid="${singlePeople.user_id}"class="crossButton fas fa-dizzy fa-4x"></i>
                            
                         </div>
                     </div>
@@ -116,7 +116,6 @@ async function loopMatchedChatroom(peopleContacts) {
     let html = '';
     let scoreHTML = '';
     for (let contact of peopleContacts) {
-        console.log(contact.user_id);
         const res = await fetch('/rating/rateScore/' + contact.user_id);
         submittedScore = await res.json();
         let theScore = submittedScore["result"].rows[0];
@@ -170,7 +169,6 @@ async function loopMatchedChatroom(peopleContacts) {
     document.querySelector('.matchingPeopleList').innerHTML = html;
 
     const forms = document.querySelectorAll('.rating-form');
-    console.log(forms);
     for (let form of forms) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -202,7 +200,7 @@ async function loopMatchedChatroom(peopleContacts) {
     }
 
     let closeButtons = document.querySelectorAll('.close-button');
-    for (let closeButton of closeButtons){
+    for (let closeButton of closeButtons) {
         closeButton.addEventListener('click', async (e) => {
             getMatchedChatroom();
         })

@@ -1,6 +1,7 @@
 /* navbar */
 .navbarContainer {
     font-family: 'Courgette', cursive;
+   
 }
 
 .navbar-brand {
@@ -8,7 +9,7 @@
 }
 
 #logout {
-    background-color: #47A3B8;
+    background-color: rgb(23, 162, 184);
     font-family: 'Courgette', cursive;
     border: 0px;
     padding: 0px;
@@ -19,6 +20,7 @@
 /* total page */
 .pagesContent {
     padding: 64px 0px 0px;
+    height: 100vh; 
 }
 
 /* matching list */
@@ -67,9 +69,31 @@
 }
 
 .showDetailList {
-    border: solid 1px black;
+    background-color: whitesmoke; 
     padding: 0px;
+    
 }
+
+.fa-heart {
+    color: rgb(208, 107, 124);
+    margin: 5px;
+}
+
+.fa-heart:hover {
+    color: rgb(232, 3, 41);
+    cursor: pointer;
+}
+
+.fa-dizzy {
+    color: #586D29;
+    margin: 5px; 
+}
+
+.fa-dizzy:hover {
+    color: #7C9618;
+    cursor: pointer;
+}
+
 
 /* User selfIntroduction */
 .userDetails {
@@ -87,4 +111,5 @@
 #refresh {
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end; 
 }

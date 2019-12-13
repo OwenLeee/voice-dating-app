@@ -47,19 +47,6 @@ export class MatchService {
         }
         return false;
 
-        // if (parseInt(duplicate) > 0 || from_user_id == to_user_id) {
-        //     throw new Error("Duplicate!");
-        // } else {
-        // if (parseInt(alreadyLiked) > 0) {
-        //     await this.knex.raw(
-        //         /* sql */ `INSERT INTO "chat_room" (user_id_1, user_id_2) 
-        //         VALUES (?, ?)`, [from_user_id, to_user_id]);
-
-        // } else if ((parseInt(chatRoomAlreadyExist) > 0 || parseInt(chatRoomAlreadyExist2) > 0)) {
-        //     throw new Error("Chat Room Already Exist");
-        // }
-        // await this.knex.raw(/* sql */ `INSERT INTO "like" (from_user_id, to_user_id) 
-        // VALUES (?, ?)`, [from_user_id, to_user_id]);
 
     }
 
@@ -108,12 +95,8 @@ export class MatchService {
                 newPeople[i].average_score = -1;
             }
         }
-      
         return newPeople;
     }
-        
-
-
 }
 
 
