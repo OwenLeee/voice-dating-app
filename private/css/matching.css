@@ -24,11 +24,7 @@
 /* total page */
 .pagesContent {
     padding: 64px 0px 0px;
-<<<<<<< HEAD
-    height: 100vh; 
-=======
     height:-webkit-fill-available;
->>>>>>> 299de20f79d2645ec1bb2a37822530aa45e316e9
 }
 
 /* matching list */
@@ -82,11 +78,7 @@
 }
 
 .showDetailList {
-<<<<<<< HEAD
-    background-color: whitesmoke; 
-=======
     border: solid 1px rgba(0,0,0,0.5);
->>>>>>> 299de20f79d2645ec1bb2a37822530aa45e316e9
     padding: 0px;
     
 }
@@ -131,9 +123,5 @@
 #refresh {
     display: flex;
     justify-content: flex-end;
-<<<<<<< HEAD
     align-items: flex-end; 
-=======
-    padding-top: 10px;
->>>>>>> 299de20f79d2645ec1bb2a37822530aa45e316e9
 }
