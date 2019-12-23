@@ -66,7 +66,7 @@ app.use("/user", userRouter.router());
 
 const registrationService = new RegistrationService(knex);
 const registrationRouter = new RegistrationRouter(registrationService);
-app.use("/registration", registrationRouter.router());
+app.use("/registration", isLoggedIn, registrationRouter.router());
 
 
 const matchService = new MatchService(knex);

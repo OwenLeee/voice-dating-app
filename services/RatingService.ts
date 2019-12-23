@@ -6,13 +6,13 @@ export class RatingService {
 
     async rating(from_user_id: number, to_user_id: number, score: number) {
 
-        const alreadyRated = (await this.knex.raw(/*SQL*/ `
+        const alreadyRated: number = (await this.knex.raw(/*SQL*/ `
         SELECT count(*) FROM "rating"
         WHERE from_user_id = ${from_user_id}
         AND to_user_id = ${to_user_id}
-        `)).rows[0].count
+        `)).rows[0].count;
 
-        if (parseInt(alreadyRated) > 0) {
+        if (alreadyRated > 0) {
             await this.knex.raw(/*SQL*/`
             UPDATE "rating"
             SET score = ${score}

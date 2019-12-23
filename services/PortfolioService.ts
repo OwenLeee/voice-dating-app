@@ -12,15 +12,17 @@ export class PortfolioService {
     }
 
     ///* getAllInfoByUserID includes..........
-    async getNameByUserID(user_id: number) {
-        await this.knex.raw(/* sql */ `
+    getNameByUserID(user_id: number) {
+        // Method 1
+        return this.knex.raw(/* sql */ `
             SELECT name FROM "user_info" 
             WHERE user_id = ${user_id} 
         `);
     }
 
     async getBirthdayByUserID(user_id: number) {
-        await this.knex.raw(/* sql */ `
+        // Method 2
+        return await this.knex.raw(/* sql */ `
             SELECT date_of_birth FROM "user_info" 
             WHERE user_id = ${user_id} 
         `);
@@ -42,8 +44,6 @@ export class PortfolioService {
     // ......................................*/
 
     ////////// get rating in RatingService //////////
-
-
 
     async getPicturesByUserID(user_id: number) {
         const results = (await this.knex.raw(/* sql */ `

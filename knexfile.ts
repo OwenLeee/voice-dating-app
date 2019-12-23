@@ -6,7 +6,7 @@ dotenv.config();
 module.exports = {
 
   development: {
-    debug: true,
+    // debug: true,
     client: "postgresql",
     connection: {
       database: process.env.DB_NAME,

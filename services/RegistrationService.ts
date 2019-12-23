@@ -15,35 +15,35 @@ export class RegistrationService {
     constructor(private knex: Knex) { };
 
     async uploadInfo(user_id: number, files: any, body: any) {
+        const trx = await this.knex.transaction();
         try {
             // upload user_id + body + icon
             await this.knex.raw(/*SQL*/ `
-            INSERT INTO "user_info" (user_id, name, gender, date_of_birth, icon, description)
-            VALUES (?, ?, ?, ?, ?, ?)
-            `, [user_id, body.name, body.gender, body.dateOfBirth, files['icon'][0].filename, body.description]); 
+        INSERT INTO "user_info" (user_id, name, gender, date_of_birth, icon, description)
+        VALUES (?, ?, ?, ?, ?, ?)
+        `, [user_id, body.name, body.gender, body.dateOfBirth, files['icon'][0].filename, body.description]);
 
             // upload files (voiceIntro)
             await this.knex.raw(/*SQL*/ ` 
-            INSERT INTO "voice" (user_id, voice_path)
-            VALUES (?, ?)
-            `, [user_id, files['voiceIntro'][0].filename]); 
+        INSERT INTO "voice" (user_id, voice_path)
+        VALUES (?, ?)
+        `, [user_id, files['voiceIntro'][0].filename]);
 
             // upload files (picture)
-            for( let image of files['image']){
+            for (let image of files['image']) {
                 await this.knex.raw(/*SQL*/ ` 
-                INSERT INTO "picture" (user_id, picture_path)
-                VALUES (?, ?)
-                `, [user_id, image.filename])
+            INSERT INTO "picture" (user_id, picture_path)
+            VALUES (?, ?)
+            `, [user_id, image.filename])
             }
-            
-            //  to be upload (genderInterest + description)
-           
-            return true;
-        }
-        catch (err) {
+
+            await trx.commit();
+        } catch (err) {
             console.log(err);
-            return false;
+            await trx.rollback();
+            throw err;
         }
+        //  to be upload (genderInterest + description)
     }
 
 }

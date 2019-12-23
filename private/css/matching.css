@@ -110,9 +110,9 @@
     height: 140px;
 }
 
-.userDetails:hover {
+/* .userDetails:hover {
     background-color: rgba(0,0,50,0.4);
-}
+} */
 
 .tickCrossButton {
     position: absolute;

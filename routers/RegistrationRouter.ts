@@ -29,7 +29,7 @@ export class RegistrationRouter {
                 res.json({ result: false});
             }
         } catch (error) {
-            res.status(404).json({ result: false });
+            res.status(500).json({ message: "" });
             console.log(error.message);
         }
     }

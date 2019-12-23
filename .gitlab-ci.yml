@@ -31,7 +31,7 @@ deploy:
     - ssh-add private.pem > /dev/null
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - ssh-keyscan -H  deploy.tecky.hk > ~/.ssh/known_hosts
+    - ssh-keyscan -H 18.141.83.223 > ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   stage: deploy
   only:

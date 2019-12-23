@@ -2,13 +2,21 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 import { MatchService } from "../services/MatchService";
 
+// const wrapperFunction = (fn: any) => (req: Request, res: Response, next: Next) => {
+//     Promise.resolve(fn(req, res, next)).catch((err) => {
+//         res.json({ result: false }).status(500);
+//         console.error('error is found in like function...');
+//         console.error(e.message);
+//     });
+// }
+
 export class MatchRouter {
 
     constructor(private matchService: MatchService) { }
 
     router() {
         const router = express.Router();
-        router.post('/like', this.like);
+        router.post('/like', (this.like));
         router.get('/randomPeople', this.getPeople)
         return router;
     }

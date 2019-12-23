@@ -9,7 +9,7 @@ describe("UserService", () => {
 
   beforeEach(async () => {
     userService = new UserService(knex);
-    await knex.raw(/*sql*/ `SELECT * from "user" where email = 'sherman@sherman.com'`);
+    // await knex.raw(/*sql*/ `SELECT * from "user" where email = 'sherman@sherman.com'`);
   });
   
   test("get user by email", async () => {

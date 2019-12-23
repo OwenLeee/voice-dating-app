@@ -80,6 +80,7 @@ export class ChatroomRouter {
 
     private getMessage = async (req: Request, res: Response) => {
         try {
+            console.log("hello Jason");
             res.json(await this.chatroomService.getMessageByUserID((req.user as any).id, (req.params as any).id));
         }
         catch (e) {

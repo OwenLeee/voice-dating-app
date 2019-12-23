@@ -120,7 +120,7 @@ async function loopMatchedChatroom(peopleContacts) {
         submittedScore = await res.json();
         let theScore = submittedScore["result"].rows[0];
         html += `
-                <div class="matchingPeopleContent row ">
+                <div class="matchingPeopleContent row">
                   
                     <img src="/user-pics/uploads/pictures/${contact.icon}" class="rounded float-left" alt="...">
                   
@@ -132,10 +132,10 @@ async function loopMatchedChatroom(peopleContacts) {
                     </button>
     
                     <!-- Modal -->
-                    <div class="modal fade " id="exampleModal${contact.user_id}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModal${contact.user_id}Label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                    <div class="modal fade" id="exampleModal${contact.user_id}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModal${contact.user_id}Label" aria-hidden="true" style="background-color: transparent">
+                        <div class="modal-dialog" role="document" ">
+                            <div class="modal-content" >
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModal${contact.user_id}Label">Give a Score to Him/Her!</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -208,4 +208,5 @@ async function loopMatchedChatroom(peopleContacts) {
 
 
 }
+
 getMatchedChatroom();

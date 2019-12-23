@@ -4,8 +4,6 @@
 // };
 const socket = io.connect();
 
-
-
 class Chatroom {
     async loadContacts() {
         const res = await fetch('/chatroom/findContactInfo');
@@ -109,6 +107,7 @@ class Chatroom {
 
                 ////////////// socket //////////////
                 socket.on("clientReceive", async (data) => {
+                    console.log(data)
                     receiverId = contactButton.dataset.id;
                     const res = await fetch('/chatroom/' + receiverId);
                     this.messages = await res.json();

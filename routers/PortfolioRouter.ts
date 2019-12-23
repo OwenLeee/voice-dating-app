@@ -15,11 +15,17 @@ export class PortfolioRouter {
         router.get('/pictures/:id', this.getPictures);
         router.get('/voice/:id', this.getVoice)
         return router;
-    }
+    }    
 
     private getUserInfo = async (req: Request, res: Response) => {
         try {
-            res.json(await this.portfolioService.getInfoByUserID((req.params as any).id));
+            const { id } = req.params;
+            const userId = parseInt(id);
+            if (isNaN(userId)) {
+                // ....
+                // return
+            }
+            res.json(await this.portfolioService.getInfoByUserID(userId));
         }
         catch (e) {
             res.status(500).json({ result: false });
